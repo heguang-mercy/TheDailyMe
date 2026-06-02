@@ -21,7 +21,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable, Optional, Dict, List, Any, Union
 
 import yaml
 from jinja2 import Environment, FileSystemLoader
@@ -37,7 +37,7 @@ sys.path.insert(0, str(ROOT))
 
 # ── 配置加载 ────────────────────────────────────────────────
 
-def load_config(config_path: str = "config.yaml") -> dict:
+def load_config(config_path: str = "config.yaml") -> Dict[str, Any]:
     """加载 YAML 配置，返回 dict"""
     path = ROOT / config_path
     if not path.exists():
@@ -46,7 +46,7 @@ def load_config(config_path: str = "config.yaml") -> dict:
         return yaml.safe_load(f)
 
 
-def save_config(config: dict, config_path: str = "config.yaml"):
+def save_config(config: Dict[str, Any], config_path: str = "config.yaml") -> None:
     """保存配置到 YAML 文件"""
     path = ROOT / config_path
     with open(path, "w", encoding="utf-8") as f:
@@ -55,23 +55,23 @@ def save_config(config: dict, config_path: str = "config.yaml"):
 
 # ── 采集器工厂函数 ──────────────────────────────────────────
 
-def create_sources(config: dict) -> list:
+def create_sources(config: Dict[str, Any]) -> List["BaseSource"]:
     """根据 config.yaml 创建所有启用的采集器实例"""
-    from sources.base import get_registry
+    from sources.base import get_registry, BaseSource
 
-    cfg_sources = config.get("sources", {})
-    timeout = config.get("fetch", {}).get("request_timeout", 10)
-    max_articles = config.get("fetch", {}).get("articles_per_source", 10)
-    city = config.get("user", {}).get("city", "Beijing")
+    cfg_sources: Dict[str, Any] = config.get("sources", {})
+    timeout: int = config.get("fetch", {}).get("request_timeout", 10)
+    max_articles: int = config.get("fetch", {}).get("articles_per_source", 10)
+    city: str = config.get("user", {}).get("city", "Beijing")
 
-    sources = []
+    sources: List[BaseSource] = []
     for entry in get_registry():
-        category_cfg = cfg_sources.get(entry["category"], {})
+        category_cfg: Dict[str, Any] = cfg_sources.get(entry["category"], {})
         if not category_cfg.get(entry["config_key"], True):
             continue
 
         cls = entry["class"]
-        kwargs = {"timeout": timeout, "max_articles": max_articles}
+        kwargs: Dict[str, Union[int, str]] = {"timeout": timeout, "max_articles": max_articles}
         if entry.get("needs_city"):
             kwargs["city"] = city
         sources.append(cls(**kwargs))
@@ -82,14 +82,14 @@ def create_sources(config: dict) -> list:
 # ── 并发采集 ────────────────────────────────────────────────
 
 def fetch_all(
-    sources: list,
+    sources: List["BaseSource"],
     max_workers: int = 6,
-    progress_callback: Optional[Callable] = None,
-) -> dict[str, list]:
+    progress_callback: Optional[Callable[[str, str], None]] = None,
+) -> Dict[str, List["Article"]]:
     """并发执行所有采集器，返回 {category: [articles]}"""
-    from sources.base import Article
+    from sources.base import Article, BaseSource
 
-    results: dict[str, list[Article]] = {}
+    results: Dict[str, List[Article]] = {}
 
     if progress_callback:
         progress_callback("fetching", f"正在从 {len(sources)} 个数据源采集...")
@@ -101,10 +101,10 @@ def fetch_all(
         }
         done = 0
         for future in as_completed(futures):
-            source = futures[future]
+            source: BaseSource = futures[future]
             done += 1
             try:
-                articles = future.result()
+                articles: List[Article] = future.result()
             except Exception as e:
                 articles = []
                 if progress_callback:
@@ -126,34 +126,36 @@ def fetch_all(
 
 # ── 选头条 ──────────────────────────────────────────────────
 
-def pick_headline(articles_by_cat: dict, config: dict) -> dict:
+def pick_headline(articles_by_cat: Dict[str, List["Article"]], config: Dict[str, Any]) -> Dict[str, Any]:
     """
     从所有文章中选一条头条 + 几条侧边重点。
     策略：按权重随机选一个类别，从该类别挑一条最长的（内容最丰富）。
     """
+    from sources.base import Article
+
     if not articles_by_cat:
         return {"headline": None, "side_headlines": []}
 
-    weights = config.get("categories", {})
-    cats = list(articles_by_cat.keys())
+    weights: Dict[str, float] = config.get("categories", {})
+    cats: List[str] = list(articles_by_cat.keys())
+    chosen_cat: Optional[str] = None
+
     if cats:
-        cat_weights = [weights.get(c, 0.33) for c in cats]
+        cat_weights: List[float] = [weights.get(c, 0.33) for c in cats]
         total_w = sum(cat_weights)
         if total_w > 0:
             cat_weights = [w / total_w for w in cat_weights]
         else:
             cat_weights = [1.0 / len(cats)] * len(cats)
         chosen_cat = random.choices(cats, weights=cat_weights, k=1)[0]
-    else:
-        chosen_cat = None
 
-    headline = None
+    headline: Optional[Article] = None
     if chosen_cat and chosen_cat in articles_by_cat:
-        cands = articles_by_cat[chosen_cat]
+        cands: List[Article] = articles_by_cat[chosen_cat]
         if cands:
             headline = max(cands, key=lambda a: len(a.summary or a.title))
 
-    side = []
+    side: List[Article] = []
     for cat, arts in articles_by_cat.items():
         if cat != chosen_cat and arts:
             side.append(arts[0])
@@ -356,9 +358,9 @@ def render_html(articles_by_cat: dict, headline: dict, config: dict) -> str:
 # ── 核心生成流程（CLI 和 Web 共用）─────────────────────────
 
 def generate_daily(
-    config: dict,
+    config: Dict[str, Any],
     progress_callback: Optional[Callable[[str, str], None]] = None,
-) -> dict:
+) -> Dict[str, Any]:
     """
     执行完整日报生成流程。
 
@@ -379,27 +381,27 @@ def generate_daily(
             }
         }
     """
-    start = time.time()
-    date_str = datetime.now().strftime("%Y-%m-%d")
+    start: float = time.time()
+    date_str: str = datetime.now().strftime("%Y-%m-%d")
 
     if progress_callback:
         progress_callback("init", "正在初始化采集器...")
 
-    sources = create_sources(config)
+    sources: List["BaseSource"] = create_sources(config)
     if not sources:
         raise ValueError("没有启用任何数据源，请检查配置")
 
-    source_names = [s.name for s in sources]
+    source_names: List[str] = [s.name for s in sources]
     if progress_callback:
         progress_callback("init", f"已加载 {len(sources)} 个数据源: {', '.join(source_names)}")
 
     # 1. 并发采集
-    articles_by_cat = fetch_all(sources, progress_callback=progress_callback)
+    articles_by_cat: Dict[str, List["Article"]] = fetch_all(sources, progress_callback=progress_callback)
 
     # 1.5 内容处理：子主题标注 + 质量评分 + 去重
     try:
         from content_engine import process_articles
-        topic_sel = config.get("topic_selection", None)
+        topic_sel: Optional[Dict[str, Any]] = config.get("topic_selection", None)
         articles_by_cat = process_articles(
             articles_by_cat, progress_callback=progress_callback,
             topic_selection=topic_sel,
@@ -408,7 +410,8 @@ def generate_daily(
         pass
 
     # 2. 选头条（优先 AI，降级传统）
-    ai_enabled = config.get("ai", {}).get("enabled", False) and config.get("ai", {}).get("api_key", "")
+    ai_enabled: bool = config.get("ai", {}).get("enabled", False) and config.get("ai", {}).get("api_key", "")
+    hl: Dict[str, Any]
     if ai_enabled:
         hl = pick_headline_ai(articles_by_cat, config, progress_callback=progress_callback)
     else:
@@ -419,19 +422,19 @@ def generate_daily(
     # 3. 渲染 HTML
     if progress_callback:
         progress_callback("rendering", "正在渲染 HTML...")
-    html = render_html(articles_by_cat, hl, config)
+    html: str = render_html(articles_by_cat, hl, config)
 
     # 4. 写入文件
     OUTPUT.mkdir(exist_ok=True)
-    out_path = OUTPUT / f"{date_str}.html"
+    out_path: Path = OUTPUT / f"{date_str}.html"
     out_path.write_text(html, encoding="utf-8")
 
-    elapsed = time.time() - start
+    elapsed: float = time.time() - start
 
-    by_cat = {cat: len(arts) for cat, arts in articles_by_cat.items()}
-    total = sum(by_cat.values())
+    by_cat: Dict[str, int] = {cat: len(arts) for cat, arts in articles_by_cat.items()}
+    total: int = sum(by_cat.values())
 
-    result = {
+    result: Dict[str, Any] = {
         "html": html,
         "path": str(out_path.resolve()),
         "date": date_str,
@@ -452,41 +455,93 @@ def generate_daily(
 
 # ── CLI 入口 ────────────────────────────────────────────────
 
-def main():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="  %(message)s",
-        stream=sys.stdout,
+def _setup_logging() -> logging.Logger:
+    """配置日志：同时输出到控制台和文件"""
+    logger = logging.getLogger("thedailyme")
+    logger.setLevel(logging.DEBUG)
+
+    if logger.handlers:
+        logger.handlers.clear()
+
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    console_formatter = logging.Formatter("  %(message)s")
+    console_handler.setFormatter(console_formatter)
+
+    log_dir = ROOT / "logs"
+    log_dir.mkdir(exist_ok=True)
+    log_file = log_dir / f"{datetime.now().strftime('%Y-%m-%d')}.log"
+    file_handler = logging.FileHandler(log_file, encoding="utf-8")
+    file_handler.setLevel(logging.DEBUG)
+    file_formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
     )
+    file_handler.setFormatter(file_formatter)
+
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
+    return logger
+
+
+def main():
+    logger = _setup_logging()
 
     parser = argparse.ArgumentParser(description="TheDailyMe — 个人化赛博日报")
     parser.add_argument("-c", "--config", default="config.yaml",
                         help="配置文件路径（默认: config.yaml）")
     args = parser.parse_args()
 
-    config = load_config(args.config)
+    logger.info("╔══════════════════════════════════╗")
+    logger.info("║      THE DAILY ME               ║")
+    logger.info("║      你的个人日报                ║")
+    logger.info("╚══════════════════════════════════╝")
 
-    print("╔══════════════════════════════════╗")
-    print("║      THE DAILY ME               ║")
-    print("║      你的个人日报                ║")
-    print("╚══════════════════════════════════╝")
+    try:
+        config = load_config(args.config)
+    except FileNotFoundError as e:
+        logger.error(f"配置文件不存在: {e}")
+        sys.exit(1)
 
-    def cli_progress(stage, detail):
+    def cli_progress(stage: str, detail: str):
         if stage == "init":
-            print(f"\n--> {detail}")
+            logger.info(f"\n--> {detail}")
         elif stage == "fetching":
-            print(f"  {detail}")
+            logger.info(f"  {detail}")
+        elif stage == "processing":
+            logger.info(f"  {detail}")
+        elif stage == "ai":
+            logger.info(f"  {detail}")
         elif stage == "rendering":
-            print(f"\n    {detail}")
+            logger.info(f"\n    {detail}")
         elif stage == "done":
-            print(f"\n[OK] {detail}")
+            logger.info(f"\n[OK] {detail}")
 
-    result = generate_daily(config, progress_callback=cli_progress)
+    try:
+        result = generate_daily(config, progress_callback=cli_progress)
+        logger.info(f"\n>> 日报已生成: {result['path']}")
+        logger.info(f"    总耗时: {result['stats']['elapsed_seconds']}s")
+        logger.info(f"\n用浏览器打开上面的 HTML 文件即可阅读。")
 
-    print(f"\n>> 日报已生成: {result['path']}")
-    print(f"    总耗时: {result['stats']['elapsed_seconds']}s")
-    print(f"\n用浏览器打开上面的 HTML 文件即可阅读。")
-    print(f"也可以部署到 GitHub Pages: 把 output/ 目录 push 上去即可。")
+        # ── 通知推送 ──
+        pages_url = config.get("pages_url", "")
+        notify_cfg = config.get("notify", {})
+        if notify_cfg.get("wechat_webhook") or notify_cfg.get("email_smtp_host"):
+            logger.info(f"\n-- 发送通知...")
+            try:
+                from notify import send_daily_brief
+                status = send_daily_brief(config, result, result["date"], pages_url)
+                for channel, ok in status.items():
+                    logger.info(f"  {channel}: {'[OK]' if ok else '[FAIL]'}")
+            except ImportError:
+                logger.warning("  通知模块未安装（需 requests）")
+            except Exception as e:
+                logger.warning(f"  通知发送异常: {e}")
+
+        logger.debug(f"生成统计: {result['stats']}")
+    except Exception as e:
+        logger.error(f"日报生成失败: {e}", exc_info=True)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

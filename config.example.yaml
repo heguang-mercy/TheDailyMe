@@ -60,6 +60,20 @@ ai:
   base_url: https://api.deepseek.com/v1
   model: deepseek-chat
   max_input_articles: 60
+# ── 通知推送（可选）────────────────────
+# 企业微信机器人: 群聊 → 群设置 → 群机器人 → 添加 → 复制 Webhook URL
+# 邮件: 推荐 163/QQ 邮箱，QQ 需开启 SMTP 并获取授权码
+notify:
+  wechat_webhook: ""       # 企业微信机器人 Webhook URL
+  email_smtp_host: ""      # SMTP 服务器，如 smtp.qq.com
+  email_smtp_port: 465
+  email_user: ""           # 发件邮箱地址
+  email_pass: ""           # SMTP 密码/授权码
+  email_to: ""             # 收件邮箱
+
+# ── GitHub Pages 部署 URL（用于生成日报链接）────
+pages_url: ""              # 如 https://heguang-mercy.github.io/TheDailyMe
+
 fetch:
   articles_per_source: 3
   headline_pool_size: 3

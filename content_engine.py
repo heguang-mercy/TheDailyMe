@@ -8,7 +8,7 @@ TheDailyMe — 内容引擎
 """
 
 import re
-from typing import Optional
+from typing import Callable, Optional, Dict, List, Any, Set
 
 # ═══════════════════════════════════════════════════════════
 #  子主题体系：关键词 → 子标签
@@ -99,9 +99,9 @@ CAT_LABELS = {
 }
 
 
-def get_topic_hierarchy():
+def get_topic_hierarchy() -> Dict[str, Dict[str, Any]]:
     """导出主题层级结构供前端使用"""
-    result = {}
+    result: Dict[str, Dict[str, Any]] = {}
     for cat_key, sub_dict in SUB_TOPICS.items():
         result[cat_key] = {
             "label": CAT_LABELS.get(cat_key, cat_key),
@@ -113,18 +113,20 @@ def get_topic_hierarchy():
     return result
 
 
-def tag_sub_topic(article) -> str:
+def tag_sub_topic(article: "Article") -> str:
     """根据文章标题和摘要匹配子主题标签，返回匹配度最高的标签名"""
-    text = f"{article.title} {article.summary} {article.meta}".lower()
-    category_topics = SUB_TOPICS.get(article.category, {})
-    best_score = 0
-    best_tag = ""
+    from sources.base import Article
+
+    text: str = f"{article.title} {article.summary} {article.meta}".lower()
+    category_topics: Dict[str, Dict[str, Any]] = SUB_TOPICS.get(article.category, {})
+    best_score: int = 0
+    best_tag: str = ""
 
     for topic_key, topic_info in category_topics.items():
-        score = 0
+        score: int = 0
         for kw in topic_info["keywords"]:
             if kw.lower() in text:
-                score += len(kw)  # 越长关键词权重越高
+                score += len(kw)
         if score > best_score:
             best_score = score
             best_tag = topic_info["label"]
@@ -146,12 +148,13 @@ SOURCE_REPUTATION = {
 }
 
 
-def score_article(article) -> int:
+def score_article(article: "Article") -> int:
     """对文章进行 0-10 质量评分，综合多个维度"""
-    score = 5  # 基础分
+    from sources.base import Article
 
-    # 1. 来源信誉 (0-3)
-    rep = SOURCE_REPUTATION.get(article.source, 5)
+    score: int = 5
+
+    rep: int = SOURCE_REPUTATION.get(article.source, 5)
     if rep >= 9:
         score += 3
     elif rep >= 7:
@@ -159,8 +162,7 @@ def score_article(article) -> int:
     elif rep >= 5:
         score += 1
 
-    # 2. 内容长度 (0-3)
-    text_len = len(article.summary or article.title)
+    text_len: int = len(article.summary or article.title)
     if text_len > 150:
         score += 3
     elif text_len > 80:
@@ -168,12 +170,10 @@ def score_article(article) -> int:
     elif text_len > 20:
         score += 1
 
-    # 3. meta 数据质量 (0-3)
-    meta = article.meta.lower()
-    # 检测点赞/星标/评论数
+    meta: str = article.meta.lower()
     nums = re.findall(r'(\d+)', meta)
     if nums:
-        max_num = max(int(n) for n in nums)
+        max_num: int = max(int(n) for n in nums)
         if max_num >= 1000:
             score += 3
         elif max_num >= 100:
@@ -181,11 +181,9 @@ def score_article(article) -> int:
         elif max_num >= 10:
             score += 1
 
-    # 4. 有 URL 加 1 分
     if article.url and article.url.startswith("http"):
         score += 1
 
-    # 5. 有子主题标签加 1 分（说明内容归类清晰）
     if article.sub_topic:
         score += 1
 
@@ -202,31 +200,33 @@ def _normalize(text: str) -> str:
     return text.lower()
 
 
-def _char_bigrams(text: str) -> set:
+def _char_bigrams(text: str) -> Set[str]:
     """生成字符二元组集合用于 Jaccard 相似度"""
     return set(text[i:i+2] for i in range(len(text) - 1))
 
 
 def _similarity(a: str, b: str) -> float:
     """Jaccard 相似度 (0-1)"""
-    sa = _char_bigrams(_normalize(a))
-    sb = _char_bigrams(_normalize(b))
+    sa: Set[str] = _char_bigrams(_normalize(a))
+    sb: Set[str] = _char_bigrams(_normalize(b))
     if not sa or not sb:
         return 0.0
     return len(sa & sb) / len(sa | sb)
 
 
-def deduplicate(articles: list, threshold: float = 0.65) -> list:
+def deduplicate(articles: List["Article"], threshold: float = 0.65) -> List["Article"]:
     """
     基于标题相似度去重。
     相似度 > threshold 的两篇文章视为重复，保留质量评分高的那篇。
     """
+    from sources.base import Article
+
     if not articles:
         return []
 
-    deduped = []
+    deduped: List[Article] = []
     for article in articles:
-        dup_found = False
+        dup_found: bool = False
         for existing in deduped:
             if (article.category == existing.category
                     and _similarity(article.title, existing.title) > threshold):
@@ -245,31 +245,34 @@ def deduplicate(articles: list, threshold: float = 0.65) -> list:
 #  一键处理
 # ═══════════════════════════════════════════════════════════
 
-def filter_by_topic_selection(articles_by_cat: dict, topic_selection: dict) -> dict:
+def filter_by_topic_selection(articles_by_cat: Dict[str, List["Article"]], 
+                              topic_selection: Dict[str, Any]) -> Dict[str, List["Article"]]:
     """
     根据主题选择配置过滤文章。
     - 大主题未选中：移除整个分类
     - 大主题选中但指定了子主题：只保留匹配子主题的文章
     - 大主题选中但 sub_topics 为空：保留该分类全部文章
     """
+    from sources.base import Article
+
     if not topic_selection:
         return articles_by_cat
 
-    result = {}
+    result: Dict[str, List[Article]] = {}
     for cat_key, cat_articles in articles_by_cat.items():
-        sel = topic_selection.get(cat_key, {})
+        sel: Dict[str, Any] = topic_selection.get(cat_key, {})
         if not sel.get("selected", True):
             continue
-        sub_filter = sel.get("sub_topics", [])
+        sub_filter: List[str] = sel.get("sub_topics", [])
         if not sub_filter:
             result[cat_key] = cat_articles
             continue
-        selected_labels = set()
-        cat_subs = SUB_TOPICS.get(cat_key, {})
+        selected_labels: Set[str] = set()
+        cat_subs: Dict[str, Any] = SUB_TOPICS.get(cat_key, {})
         for sk in sub_filter:
             if sk in cat_subs:
                 selected_labels.add(cat_subs[sk]["label"])
-        filtered = [a for a in cat_articles
+        filtered: List[Article] = [a for a in cat_articles
                     if a.article_type == "weather" or a.sub_topic in selected_labels]
         if filtered:
             result[cat_key] = filtered
@@ -277,8 +280,9 @@ def filter_by_topic_selection(articles_by_cat: dict, topic_selection: dict) -> d
     return result
 
 
-def process_articles(articles_by_cat: dict, progress_callback=None,
-                     topic_selection: dict = None) -> dict:
+def process_articles(articles_by_cat: Dict[str, List["Article"]], 
+                     progress_callback: Optional[Callable[[str, str], None]] = None,
+                     topic_selection: Optional[Dict[str, Any]] = None) -> Dict[str, List["Article"]]:
     """
     对采集到的文章执行完整处理流程：
     1. 子主题标签匹配
@@ -286,10 +290,12 @@ def process_articles(articles_by_cat: dict, progress_callback=None,
     3. 标题相似度去重
     4. 按主题选择过滤
     """
+    from typing import Callable
+    from sources.base import Article
+
     if progress_callback:
         progress_callback("processing", "正在标注子主题...")
 
-    # Step 1+2: 标签 + 评分
     for cat_arts in articles_by_cat.values():
         for a in cat_arts:
             if a.article_type == "weather":
@@ -300,11 +306,10 @@ def process_articles(articles_by_cat: dict, progress_callback=None,
     if progress_callback:
         progress_callback("processing", "正在去重...")
 
-    # Step 3: 按分类分别去重
-    total_before = sum(len(v) for v in articles_by_cat.values())
+    total_before: int = sum(len(v) for v in articles_by_cat.values())
     for cat in list(articles_by_cat.keys()):
         articles_by_cat[cat] = deduplicate(articles_by_cat[cat])
-    total_after = sum(len(v) for v in articles_by_cat.values())
+    total_after: int = sum(len(v) for v in articles_by_cat.values())
 
     if progress_callback:
         removed = total_before - total_after
@@ -312,7 +317,6 @@ def process_articles(articles_by_cat: dict, progress_callback=None,
             progress_callback("processing",
                               f"去重完成：{total_before} → {total_after} 条（移除 {removed} 条重复）")
 
-    # Step 4: 按主题选择过滤
     if topic_selection:
         articles_by_cat = filter_by_topic_selection(articles_by_cat, topic_selection)
 
