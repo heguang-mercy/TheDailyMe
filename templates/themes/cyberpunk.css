@@ -1,0 +1,288 @@
+/* TheDailyMe — 赛博朋克终端风格 */
+/* 等宽字体 + 黑底霓虹绿 + 荧光边框 + 扫描线 */
+
+:root {
+  --bg: #0a0a0a;
+  --text: #00ff66;
+  --muted: #008833;
+  --border: #00ff66;
+  --accent: #ff00ff;
+  --accent-bg: #ff00ff;
+  --tag-bg: #0d1a0d;
+  --rule: #00ff66;
+  --glow: 0 0 10px rgba(0, 255, 102, 0.5);
+  --ai-glow: 0 0 8px rgba(255, 0, 255, 0.6);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "JetBrains Mono", "Consolas", "Courier New", "SimHei", monospace;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 28px;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* 扫描线效果 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 102, 0.02) 2px,
+    rgba(0, 255, 102, 0.02) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ── 报头 ────────────────────────────────────── */
+.masthead {
+  text-align: center;
+  border: 2px solid var(--border);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--glow), inset 0 0 20px rgba(0, 255, 102, 0.1);
+  position: relative;
+}
+
+.masthead::before {
+  content: ">>> SYSTEM BOOT <<<";
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  background: var(--bg);
+  padding: 0 12px;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 3px;
+}
+
+.masthead h1 {
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(0, 255, 102, 0.7), 0 0 40px rgba(0, 255, 102, 0.3);
+}
+
+.masthead .subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── 日期线 ──────────────────────────────────── */
+.dateline {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 8px 0;
+  margin-bottom: 24px;
+  border-top: 1px dashed var(--muted);
+  border-bottom: 1px dashed var(--muted);
+  letter-spacing: 2px;
+}
+
+.dateline span { margin: 0 8px; }
+
+/* ── 头条区 ──────────────────────────────────── */
+.headline-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.headline-main {
+  border: 1px solid var(--accent);
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+  position: relative;
+}
+
+.headline-main::before {
+  content: "[ HEADLINE ]";
+  position: absolute;
+  top: -9px;
+  left: 16px;
+  background: var(--bg);
+  padding: 0 8px;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.headline-main h2 {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.headline-main h2 a {
+  color: var(--accent);
+  text-decoration: none;
+  text-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+}
+.headline-main h2 a:hover { text-decoration: underline; }
+
+.headline-main .summary {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.headline-main .meta {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.headline-side {
+  padding: 0;
+}
+
+.headline-side h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+  color: var(--text);
+  border-bottom: 1px solid var(--muted);
+  padding-bottom: 8px;
+}
+
+.headline-side .side-item {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dotted rgba(0, 255, 102, 0.2);
+}
+.headline-side .side-item:last-child { border-bottom: none; }
+
+.headline-side .side-item h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.headline-side .side-item h4 a { color: var(--text); text-decoration: none; }
+.headline-side .side-item h4 a:hover { color: var(--accent); }
+
+.headline-side .side-item .side-meta {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* ── 三栏分类区 ──────────────────────────────── */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.category-col {
+  border: 1px solid var(--muted);
+  padding: 16px;
+  position: relative;
+}
+
+.category-col h3 {
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
+
+.category-col .article-item {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px dotted rgba(0, 255, 102, 0.15);
+}
+.category-col .article-item:last-child { border-bottom: none; }
+
+.category-col .article-item h4 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
+.category-col .article-item h4 a { color: var(--text); text-decoration: none; }
+.category-col .article-item h4 a:hover { color: var(--accent); }
+
+.category-col .article-item .summary {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+
+.category-col .article-item .meta {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.category-col .article-item .source-tag {
+  display: inline-block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--tag-bg);
+  color: var(--text);
+  padding: 1px 6px;
+  margin-right: 6px;
+  border: 1px solid var(--muted);
+}
+
+/* ── 底部天气条 ──────────────────────────────── */
+.weather-ribbon {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 13px;
+  color: var(--text);
+  border: 1px solid var(--muted);
+  background: rgba(0, 255, 102, 0.03);
+}
+
+.weather-ribbon .weather-item {
+  display: inline-block;
+  margin: 0 14px;
+}
+
+/* ── 页脚 ────────────────────────────────────── */
+.footer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--muted);
+  letter-spacing: 2px;
+}
+
+/* ── 响应式 ──────────────────────────────────── */
+@media (max-width: 768px) {
+  body { padding: 16px 12px; }
+  .masthead h1 { font-size: 28px; letter-spacing: 2px; }
+  .headline-section { grid-template-columns: 1fr; }
+  .category-grid { grid-template-columns: 1fr; }
+  .headline-main h2 { font-size: 22px; }
+}

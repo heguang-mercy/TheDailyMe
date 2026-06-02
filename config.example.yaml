@@ -1,0 +1,66 @@
+layout: broadsheet
+user:
+  name: 同学
+  city: Beijing
+  language: zh
+categories:
+  tech: 0.25
+  climate: 0.15
+  gaming: 0.15
+  sports: 0
+  movies: 0
+  music: 0.15
+topic_selection:
+  tech:
+    selected: true
+    sub_topics: []
+  climate:
+    selected: true
+    sub_topics: []
+  gaming:
+    selected: true
+    sub_topics: []
+  sports:
+    selected: true
+    sub_topics: []
+  movies:
+    selected: true
+    sub_topics: []
+  music:
+    selected: true
+    sub_topics: []
+sources:
+  tech:
+    github_trending: true
+    hackernews: true
+    v2ex: true
+  climate:
+    open_meteo: true
+    weather_rss: true
+    carbon_brief: true
+  gaming:
+    steam_rss: true
+    reddit_gaming: true
+    youmin_rss: true
+  sports:
+    espn_rss: true
+    hupu: true
+    reddit_sports: true
+  movies:
+    douban_rss: true
+    reddit_movies: true
+    rottentomatoes_rss: true
+  music:
+    reddit_music: true
+    pitchfork_rss: true
+    billboard_rss: true
+ai:
+  enabled: true
+  api_key: your-api-key-here
+  base_url: https://api.deepseek.com/v1
+  model: deepseek-chat
+  max_input_articles: 60
+fetch:
+  articles_per_source: 3
+  headline_pool_size: 3
+  request_timeout: 10

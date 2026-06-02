@@ -1,0 +1,257 @@
+/* TheDailyMe — 瑞士国际主义风格 */
+/* 无衬线 + 严格网格 + 大量留白 + 红黑白配色 */
+
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #777777;
+  --border: #dddddd;
+  --accent: #e00000;
+  --accent-bg: #e00000;
+  --tag-bg: #f5f5f5;
+  --rule: #111111;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111111;
+    --text: #e8e8e8;
+    --muted: #888888;
+    --border: #333333;
+    --accent: #ff3333;
+    --accent-bg: #ff3333;
+    --tag-bg: #222222;
+    --rule: #e8e8e8;
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Helvetica Neue", "Noto Sans SC", "Arial", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 48px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* ── 报头 ────────────────────────────────────── */
+.masthead {
+  border-bottom: 4px solid var(--rule);
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+}
+
+.masthead h1 {
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.masthead .subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ── 日期线 ──────────────────────────────────── */
+.dateline {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+  margin-bottom: 48px;
+}
+
+/* ── 头条区 ──────────────────────────────────── */
+.headline-section {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 48px;
+  margin-bottom: 60px;
+}
+
+.headline-main h2 {
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+.headline-main h2 a {
+  color: var(--text);
+  text-decoration: none;
+}
+.headline-main h2 a:hover { color: var(--accent); }
+
+.headline-main .summary {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.headline-main .meta {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.headline-side {
+  border-left: 2px solid var(--rule);
+  padding-left: 32px;
+}
+
+.headline-side h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.headline-side .side-item {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.headline-side .side-item:last-child { border-bottom: none; }
+
+.headline-side .side-item h4 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.headline-side .side-item h4 a {
+  color: var(--text);
+  text-decoration: none;
+}
+.headline-side .side-item h4 a:hover { color: var(--accent); }
+
+.headline-side .side-item .side-meta {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── 三栏分类区 ──────────────────────────────── */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 40px;
+  margin-bottom: 60px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--border);
+}
+
+.category-col h3 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--rule);
+}
+
+.category-col .article-item {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.category-col .article-item:last-child { border-bottom: none; }
+
+.category-col .article-item h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.category-col .article-item h4 a {
+  color: var(--text);
+  text-decoration: none;
+}
+.category-col .article-item h4 a:hover { color: var(--accent); }
+
+.category-col .article-item .summary {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.category-col .article-item .meta {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.category-col .article-item .source-tag {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--tag-bg);
+  padding: 2px 8px;
+  margin-right: 8px;
+}
+
+/* ── 底部天气条 ──────────────────────────────── */
+.weather-ribbon {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 32px 0;
+  font-size: 13px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  letter-spacing: 1px;
+}
+
+.weather-ribbon .weather-item {
+  font-weight: 500;
+}
+
+/* ── 页脚 ────────────────────────────────────── */
+.footer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── 响应式 ──────────────────────────────────── */
+@media (max-width: 768px) {
+  body { padding: 32px 20px; }
+  .masthead h1 { font-size: 36px; letter-spacing: -1px; }
+  .headline-section { grid-template-columns: 1fr; gap: 24px; }
+  .headline-side { border-left: none; padding-left: 0; border-top: 2px solid var(--rule); padding-top: 24px; }
+  .category-grid { grid-template-columns: 1fr; gap: 24px; }
+  .headline-main h2 { font-size: 28px; }
+}

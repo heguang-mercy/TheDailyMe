@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheDailyMe — {{ date }}</title>
+<style>
+/* ═══ 赛博朋克终端 · Cyberpunk Terminal ═══ */
+/* 暗底霓虹 / 等宽字体 / 扫描线 / CRT 余辉 */
+
+{% if components_css %}
+{{ components_css }}
+{% endif %}
+
+:root {
+  --bg: #0a0a0a;
+  --text: #00ff88;
+  --muted: #008844;
+  --accent: #ff00cc;
+  --accent2: #00ccff;
+  --border: #003322;
+  --surface: #0d1a0d;
+  --glow: 0 0 8px rgba(0,255,136,0.3);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+@font-face {
+  font-family: 'Cyber';
+  src: local('Consolas'), local('Courier New'), local('monospace');
+}
+
+body {
+  font-family: 'Consolas', 'Courier New', 'Source Code Pro', 'Noto Sans SC', monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 40px;
+  line-height: 1.6;
+}
+
+/* CRT 扫描线效果 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.15) 0px,
+    rgba(0,0,0,0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ── 顶部状态栏 ──────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+  font-size: 12px;
+}
+.topbar .logo {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 0 12px var(--accent);
+}
+.topbar .info { color: var(--muted); }
+.topbar .info span {
+  color: var(--accent2);
+  margin: 0 8px;
+}
+.blink {
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ── 头条 ──────────────────────────────────── */
+.headline-terminal {
+  border: 1px solid var(--accent);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  background: var(--surface);
+  box-shadow: var(--glow);
+  position: relative;
+}
+.headline-terminal::before {
+  content: "> BREAKING / / / ";
+  display: block;
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 8px var(--accent);
+}
+.headline-terminal h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  text-shadow: 0 0 6px rgba(0,255,136,0.5);
+}
+.headline-terminal h2 a { color: var(--accent2); text-decoration: none; }
+.headline-terminal h2 a:hover { text-decoration: underline; text-shadow: 0 0 16px var(--accent2); }
+.headline-terminal .summary {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+.headline-terminal .meta {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* ── 侧边重点 ────────────────────────────── */
+.side-alerts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.alert-item {
+  border: 1px solid var(--border);
+  padding: 14px 18px;
+  background: var(--surface);
+  font-size: 13px;
+}
+.alert-item h4 {
+  font-size: 13px;
+  color: var(--accent2);
+  margin-bottom: 4px;
+}
+.alert-item h4 a { color: var(--accent2); text-decoration: none; }
+.alert-item h4 a:hover { text-decoration: underline; }
+.alert-item .alert-meta {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* ── 三栏分类 ─────────────────────────────── */
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.cat-column {
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.cat-column h3 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent);
+}
+.cat-column .item {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.cat-column .item:last-child { border-bottom: none; }
+.cat-column .item h4 {
+  font-size: 13px;
+  color: var(--accent2);
+  margin-bottom: 3px;
+}
+.cat-column .item h4 a { color: var(--accent2); text-decoration: none; }
+.cat-column .item h4 a:hover { text-decoration: underline; }
+.cat-column .item .summary {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+.cat-column .item .meta {
+  color: var(--muted);
+  font-size: 10px;
+}
+.cat-column .item .tag {
+  display: inline-block;
+  font-size: 9px;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 1px 6px;
+  margin-right: 6px;
+}
+
+/* ── 底部状态栏 ──────────────────────────── */
+.bottombar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.bottombar .highlight {
+  color: var(--accent2);
+}
+
+.footer {
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+  padding: 12px;
+}
+
+@media (max-width: 768px) {
+  body { padding: 16px; }
+  .category-grid { grid-template-columns: 1fr; }
+  .headline-terminal h2 { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ── 顶部状态栏 ── -->
+<div class="topbar">
+  <span class="logo">[ THE DAILY ME ]</span>
+  <span class="info">SYS.TIME: {{ date }} <span>|</span> VOL.{{ vol }} <span>|</span> STATUS: <span class="blink">ONLINE</span>{% if has_ai %} <span>|</span> MODE: <span class="ai-mode-badge">AI_ENHANCED</span>{% endif %}</span>
+</div>
+
+{% if daily_briefing %}
+<div class="daily-briefing">
+  <div class="briefing-label">
+    [ BRIEFING ] <span class="ai-badge">AI 生成</span>
+  </div>
+  <p class="briefing-text">{{ daily_briefing }}</p>
+</div>
+{% endif %}
+
+<!-- ── 头条 ── -->
+{% if headline %}
+<div class="headline-terminal{% if has_ai %} ai-headline-trigger{% endif %}"
+     {% if has_ai %}onclick="openDetail(0)" title="点击查看 AI 深度解读"{% endif %}>
+  <h2>{{ headline.title }}{% if has_ai %} <span class="ai-score">{{ ai_headlines[0].importance_score }}/10</span>{% endif %}</h2>
+  {% if headline.summary %}<p class="summary">{{ headline.summary }}</p>{% endif %}
+  <p class="meta">SRC: {{ headline.source }} | {{ headline.meta }}</p>
+</div>
+{% endif %}
+
+<!-- ── 侧边警报 ── -->
+{% if side_headlines %}
+<div class="side-alerts">
+  {% for item in side_headlines %}
+  <div class="alert-item">
+    <h4>{% if item.url %}<a href="{{ item.url }}" target="_blank">{% endif %}[!] {{ item.title }}{% if item.url %}</a>{% endif %}</h4>
+    <p class="alert-meta">SRC: {{ item.source }} | {{ item.meta }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ── 三栏分类 ── -->
+<div class="category-grid">
+  {% for cat_name, cat_label, cat_articles in categories %}
+  <div class="cat-column">
+    <h3>{{ cat_label }}</h3>
+    {% for article in cat_articles %}
+    <div class="item">
+      <h4>{% if article.url %}<a href="{{ article.url }}" target="_blank">{% endif %}{{ article.title }}{% if article.url %}</a>{% endif %}</h4>
+      {% if article.summary %}<p class="summary">{{ article.summary }}</p>{% endif %}
+      <p class="meta">{% if article.sub_topic %}<span class="sub-topic-tag">{{ article.sub_topic }}</span>{% endif %}<span class="tag">{{ article.source }}</span>{% if article.quality_score > 0 %}<span class="quality-badge">{{ article.quality_score }}分</span>{% endif %}{{ article.meta }}</p>
+    </div>
+    {% endfor %}
+    {% if not cat_articles %}
+    <div class="item"><p class="summary">[ NO DATA ]</p></div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+<!-- ── 底部状态栏 ── -->
+{% if weather_items %}
+<div class="bottombar">
+  {% for w in weather_items %}
+  <span class="highlight">{{ w.title }}</span>
+  <span>{{ w.summary }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+<div class="bottombar">
+  <span>SYS: NORMAL</span>
+  <span>TOTAL NODES: {{ total_articles }}</span>
+  <span>UPTIME: {{ vol }}d</span>
+</div>
+
+<footer class="footer">
+  // TheDailyMe v1.0 — Cyberpunk Edition // {{ year }}
+</footer>
+
+{% if has_ai %}
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+  <div class="detail-panel" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeDetail()" title="关闭">&times;</button>
+    <div class="detail-category">
+      <span id="detailCategory"></span>
+      <span class="score" id="detailScore"></span>
+    </div>
+    <h2 id="detailTitle"></h2>
+    <div class="detail-meta">
+      <span id="detailSource"></span>
+      <span id="detailReason"></span>
+    </div>
+    <div class="detail-body" id="detailBody"></div>
+    <div class="detail-source">
+      <span class="source-label"><i class="icon icon-paperclip"></i> 信息来源</span>
+      <a class="source-btn" id="detailSourceUrl" href="#" target="_blank" rel="noopener">查看原文 &rarr;</a>
+    </div>
+    <div class="detail-nav">
+      <button id="detailPrev" onclick="navigateDetail(-1)">&larr; 上一条</button>
+      <button id="detailNext" onclick="navigateDetail(1)">下一条 &rarr;</button>
+    </div>
+  </div>
+</div>
+<script>
+var _aiHeadlines = {{ ai_headlines_json }};
+var _currentIdx = 0;
+var CAT_LABELS = {"tech":"科技","climate":"气候","gaming":"游戏","sports":"体育","movies":"影视","music":"音乐"};
+function openDetail(idx) {
+  if (idx < 0 || idx >= _aiHeadlines.length) return;
+  _currentIdx = idx;
+  var h = _aiHeadlines[idx];
+  document.getElementById('detailCategory').textContent = (CAT_LABELS[h.category] || h.category);
+  document.getElementById('detailScore').textContent = '重要性: ' + h.importance_score + '/10';
+  document.getElementById('detailTitle').textContent = h.ai_title;
+  document.getElementById('detailSource').textContent = '来源: ' + h.source;
+  document.getElementById('detailReason').textContent = h.importance_reason || '';
+  document.getElementById('detailBody').innerHTML = '<p>' + h.ai_detail.replace(/\n/g, '</p><p>') + '</p>';
+  document.getElementById('detailSourceUrl').href = h.url || '#';
+  document.getElementById('detailPrev').style.visibility = idx > 0 ? 'visible' : 'hidden';
+  document.getElementById('detailNext').style.visibility = idx < _aiHeadlines.length - 1 ? 'visible' : 'hidden';
+  document.getElementById('detailOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeDetail(e) {
+  if (e && e.target !== document.getElementById('detailOverlay')) return;
+  document.getElementById('detailOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navigateDetail(dir) { openDetail(_currentIdx + dir); }
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('detailOverlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closeDetail();
+  if (e.key === 'ArrowLeft') navigateDetail(-1);
+  if (e.key === 'ArrowRight') navigateDetail(1);
+});
+</script>
+{% endif %}
+
+</div>
+</body>
+</html>

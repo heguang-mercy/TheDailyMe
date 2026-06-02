@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheDailyMe — {{ date }}</title>
+<style>
+/* ═══ 瑞士国际主义 · Swiss International ═══ */
+/* 网格系统 / Helvetica / 单色 / 大面积留白 */
+
+{% if components_css %}
+{{ components_css }}
+{% endif %}
+
+:root {
+  --bg: #ffffff;
+  --text: #111;
+  --muted: #666;
+  --border: #111;
+  --accent: #e60000;
+  --surface: #f6f6f6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --text: #eee;
+    --muted: #999;
+    --border: #444;
+    --accent: #ff4444;
+    --surface: #1e1e1e;
+  }
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 64px 48px;
+  line-height: 1.5;
+}
+
+/* ── 报头 ──────────────────────────────────── */
+.masthead {
+  margin-bottom: 60px;
+}
+.masthead h1 {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+}
+.masthead .rule {
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+  margin: 12px 0 16px;
+}
+.masthead .subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+.dateline {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 48px;
+}
+
+/* ── 头条 ──────────────────────────────────── */
+.headline-block {
+  margin-bottom: 60px;
+}
+.headline-block h2 {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+.headline-block h2 a { color: var(--text); text-decoration: none; }
+.headline-block h2 a:hover { color: var(--accent); }
+.headline-block .summary {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 640px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.headline-block .meta {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── 三栏网格 ─────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+.col {}
+.col h3 {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+.col .item {
+  margin-bottom: 24px;
+}
+.col .item h4 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+.col .item h4 a { color: var(--text); text-decoration: none; }
+.col .item h4 a:hover { color: var(--accent); }
+.col .item .summary {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.col .item .meta {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.col .item .tag {
+  display: inline-block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: var(--surface);
+  padding: 2px 8px;
+  margin-right: 6px;
+}
+
+/* ── 底部 ──────────────────────────────────── */
+.weather-strip {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+.weather-item {
+  font-size: 13px;
+  color: var(--muted);
+}
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+  body { padding: 32px 20px; }
+  .grid { grid-template-columns: 1fr; gap: 32px; }
+  .headline-block h2 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <h1>The Daily Me</h1>
+  <div class="rule"></div>
+  <p class="subtitle">{{ user_name }}的个人日报 · {{ date }} · 第 {{ vol }} 期 · {{ total_articles }} 条{% if has_ai %} · AI 增强版{% endif %}</p>
+</header>
+<div class="dateline">{{ date }}</div>
+
+{% if daily_briefing %}
+<div class="daily-briefing">
+  <div class="briefing-label">
+    今日必读 <span class="ai-badge">AI 生成</span>
+  </div>
+  <p class="briefing-text">{{ daily_briefing }}</p>
+</div>
+{% endif %}
+
+{% if headline %}
+<div class="headline-block{% if has_ai %} ai-headline-trigger{% endif %}"
+     {% if has_ai %}onclick="openDetail(0)" title="点击查看 AI 深度解读"{% endif %}>
+  <h2>{{ headline.title }}{% if has_ai %} <span class="ai-score">{{ ai_headlines[0].importance_score }}/10</span>{% endif %}</h2>
+  {% if headline.summary %}<p class="summary">{{ headline.summary }}</p>{% endif %}
+  <p class="meta">{{ headline.source }} · {{ headline.meta }}</p>
+</div>
+{% endif %}
+
+<div class="grid">
+  {% for cat_name, cat_label, cat_articles in categories %}
+  <div class="col">
+    <h3>{{ cat_label }}</h3>
+    {% for article in cat_articles %}
+    <div class="item">
+      <h4>{% if article.url %}<a href="{{ article.url }}" target="_blank">{% endif %}{{ article.title }}{% if article.url %}</a>{% endif %}</h4>
+      {% if article.summary %}<p class="summary">{{ article.summary }}</p>{% endif %}
+      <p class="meta">{% if article.sub_topic %}<span class="sub-topic-tag">{{ article.sub_topic }}</span>{% endif %}<span class="tag">{{ article.source }}</span>{% if article.quality_score > 0 %}<span class="quality-badge">{{ article.quality_score }}分</span>{% endif %}{{ article.meta }}</p>
+    </div>
+    {% endfor %}
+    {% if not cat_articles %}
+    <p class="summary" style="font-style:italic;color:var(--muted);">暂无内容</p>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+{% if weather_items %}
+<div class="weather-strip">
+  {% for w in weather_items %}
+  <span class="weather-item">{{ w.title }} · {{ w.summary }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+
+<footer class="footer">
+  TheDailyMe © {{ year }} · Swiss International Style
+</footer>
+
+{% if has_ai %}
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+  <div class="detail-panel" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeDetail()" title="关闭">&times;</button>
+    <div class="detail-category">
+      <span id="detailCategory"></span>
+      <span class="score" id="detailScore"></span>
+    </div>
+    <h2 id="detailTitle"></h2>
+    <div class="detail-meta">
+      <span id="detailSource"></span>
+      <span id="detailReason"></span>
+    </div>
+    <div class="detail-body" id="detailBody"></div>
+    <div class="detail-source">
+      <span class="source-label"><i class="icon icon-paperclip"></i> 信息来源</span>
+      <a class="source-btn" id="detailSourceUrl" href="#" target="_blank" rel="noopener">查看原文 &rarr;</a>
+    </div>
+    <div class="detail-nav">
+      <button id="detailPrev" onclick="navigateDetail(-1)">&larr; 上一条</button>
+      <button id="detailNext" onclick="navigateDetail(1)">下一条 &rarr;</button>
+    </div>
+  </div>
+</div>
+<script>
+var _aiHeadlines = {{ ai_headlines_json }};
+var _currentIdx = 0;
+var CAT_LABELS = {"tech":"科技","climate":"气候","gaming":"游戏","sports":"体育","movies":"影视","music":"音乐"};
+function openDetail(idx) {
+  if (idx < 0 || idx >= _aiHeadlines.length) return;
+  _currentIdx = idx;
+  var h = _aiHeadlines[idx];
+  document.getElementById('detailCategory').textContent = (CAT_LABELS[h.category] || h.category);
+  document.getElementById('detailScore').textContent = '重要性: ' + h.importance_score + '/10';
+  document.getElementById('detailTitle').textContent = h.ai_title;
+  document.getElementById('detailSource').textContent = '来源: ' + h.source;
+  document.getElementById('detailReason').textContent = h.importance_reason || '';
+  document.getElementById('detailBody').innerHTML = '<p>' + h.ai_detail.replace(/\n/g, '</p><p>') + '</p>';
+  document.getElementById('detailSourceUrl').href = h.url || '#';
+  document.getElementById('detailPrev').style.visibility = idx > 0 ? 'visible' : 'hidden';
+  document.getElementById('detailNext').style.visibility = idx < _aiHeadlines.length - 1 ? 'visible' : 'hidden';
+  document.getElementById('detailOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeDetail(e) {
+  if (e && e.target !== document.getElementById('detailOverlay')) return;
+  document.getElementById('detailOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navigateDetail(dir) { openDetail(_currentIdx + dir); }
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('detailOverlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closeDetail();
+  if (e.key === 'ArrowLeft') navigateDetail(-1);
+  if (e.key === 'ArrowRight') navigateDetail(1);
+});
+</script>
+{% endif %}
+
+</body>
+</html>

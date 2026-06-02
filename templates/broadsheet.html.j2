@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheDailyMe — {{ date }}</title>
+<style>
+/* ── 内联样式（所有 CSS 在此，自包含单文件） ── */
+{{ css }}
+{% if components_css %}
+{{ components_css }}
+{% endif %}
+</style>
+</head>
+<body>
+
+<!-- ═══ 报头 ═══ -->
+<header class="masthead">
+  <h1>The Daily Me</h1>
+  <p class="subtitle">{{ user_name }}的个人日报</p>
+</header>
+
+<div class="dateline">
+  <span>{{ date }}</span>
+  <span>|</span>
+  <span>VOL. {{ vol }}</span>
+  <span>|</span>
+  <span>今日{{ total_articles }}条</span>
+  {% if has_ai %}<span>|</span><span><i class="icon icon-bot"></i> AI 增强版</span>{% endif %}
+</div>
+
+<!-- ═══ AI 今日必读 ═══ -->
+{% if daily_briefing %}
+<div class="daily-briefing">
+  <div class="briefing-label">
+    今日必读 <span class="ai-badge">AI 生成</span>
+  </div>
+  <p class="briefing-text">{{ daily_briefing }}</p>
+</div>
+{% endif %}
+
+<!-- ═══ 头条区 ═══ -->
+{% if headline %}
+<div class="headline-section">
+  <div class="headline-main{% if has_ai %} ai-highlight{% endif %}">
+    <h2 class="{% if has_ai %}ai-headline-trigger{% endif %}"
+        {% if has_ai %}onclick="openDetail(0)" title="点击查看 AI 深度解读"{% endif %}>
+      {{ headline.title }}
+      {% if has_ai %}<span class="ai-score">{{ ai_headlines[0].importance_score }}/10</span>{% endif %}
+    </h2>
+    {% if headline.summary %}<p class="summary">{{ headline.summary }}</p>{% endif %}
+    <p class="meta">
+      <span class="source-tag">{{ headline.source }}</span>
+      {{ headline.meta }}
+      {% if has_ai and ai_headlines[0].importance_reason %}
+      <br><small class="ai-reason">{{ ai_headlines[0].importance_reason }}</small>
+      {% endif %}
+    </p>
+  </div>
+  <div class="headline-side">
+    <h3><i class="icon icon-newspaper"></i> 其他重点</h3>
+    {% for item in side_headlines %}
+    <div class="side-item{% if has_ai and loop.index0 < ai_headlines|length - 1 %} ai-headline-trigger{% endif %}"
+         {% if has_ai and loop.index0 < ai_headlines|length - 1 %}onclick="openDetail({{ loop.index0 + 1 }})" title="点击查看 AI 深度解读"{% endif %}>
+      <h4>
+        {{ item.title }}
+        {% if has_ai and loop.index0 + 1 < ai_headlines|length %}
+        <span class="ai-score">{{ ai_headlines[loop.index0 + 1].importance_score }}/10</span>
+        {% endif %}
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">{{ item.source }}</span>
+        {{ item.meta }}
+      </p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══ 三栏分类 ═══ -->
+<div class="category-grid">
+  {% for cat_name, cat_label, cat_articles in categories %}
+  <div class="category-col">
+    <h3>{{ cat_label }}</h3>
+    {% for article in cat_articles %}
+    <div class="article-item">
+      <h4>
+        {% if article.url %}<a href="{{ article.url }}" target="_blank">{% endif %}
+          {{ article.title }}
+        {% if article.url %}</a>{% endif %}
+      </h4>
+      {% if article.summary %}<p class="summary">{{ article.summary }}</p>{% endif %}
+      <p class="meta">
+        {% if article.sub_topic %}<span class="sub-topic-tag">{{ article.sub_topic }}</span>{% endif %}
+        <span class="source-tag">{{ article.source }}</span>
+        {% if article.quality_score > 0 %}<span class="quality-badge">{{ article.quality_score }}分</span>{% endif %}
+        {{ article.meta }}
+      </p>
+    </div>
+    {% endfor %}
+    {% if not cat_articles %}
+    <p class="summary" style="font-style:italic">今日暂无内容，请稍后再试。</p>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+<!-- ═══ 天气简报 ═══ -->
+{% if weather_items %}
+<div class="weather-ribbon">
+  {% for w in weather_items %}
+  <span class="weather-item">{{ w.title }} · {{ w.summary }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ═══ 页脚 ═══ -->
+<footer class="footer">
+  TheDailyMe © {{ year }} · 由 Python + Jinja2 生成 · 数据来源见各条目链接
+</footer>
+
+<!-- ═══ AI 二级详情弹窗 ═══ -->
+{% if has_ai %}
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+  <div class="detail-panel" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeDetail()" title="关闭">&times;</button>
+
+    <div class="detail-category">
+      <span id="detailCategory"></span>
+      <span class="score" id="detailScore"></span>
+    </div>
+
+    <h2 id="detailTitle"></h2>
+
+    <div class="detail-meta">
+      <span id="detailSource"></span>
+      <span id="detailReason"></span>
+    </div>
+
+    <div class="detail-body" id="detailBody"></div>
+
+    <div class="detail-source">
+      <span class="source-label"><i class="icon icon-paperclip"></i> 信息来源</span>
+      <a class="source-btn" id="detailSourceUrl" href="#" target="_blank" rel="noopener">
+        查看原文 &rarr;
+      </a>
+    </div>
+
+    <div class="detail-nav">
+      <button id="detailPrev" onclick="navigateDetail(-1)">&larr; 上一条</button>
+      <button id="detailNext" onclick="navigateDetail(1)">下一条 &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var _aiHeadlines = {{ ai_headlines_json }};
+var _currentIdx = 0;
+
+var CAT_LABELS = {
+  "tech": "科技",
+  "climate": "气候",
+  "gaming": "游戏",
+  "sports": "体育",
+  "movies": "影视",
+  "music": "音乐"
+};
+
+function openDetail(idx) {
+  if (idx < 0 || idx >= _aiHeadlines.length) return;
+  _currentIdx = idx;
+  var h = _aiHeadlines[idx];
+
+  document.getElementById('detailCategory').textContent = (CAT_LABELS[h.category] || h.category);
+  document.getElementById('detailScore').textContent = '重要性: ' + h.importance_score + '/10';
+  document.getElementById('detailTitle').textContent = h.ai_title;
+  document.getElementById('detailSource').textContent = '来源: ' + h.source;
+  document.getElementById('detailReason').textContent = h.importance_reason || '';
+  document.getElementById('detailBody').innerHTML = '<p>' + h.ai_detail.replace(/\n/g, '</p><p>') + '</p>';
+  document.getElementById('detailSourceUrl').href = h.url || '#';
+
+  document.getElementById('detailPrev').style.visibility = idx > 0 ? 'visible' : 'hidden';
+  document.getElementById('detailNext').style.visibility = idx < _aiHeadlines.length - 1 ? 'visible' : 'hidden';
+
+  document.getElementById('detailOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail(e) {
+  if (e && e.target !== document.getElementById('detailOverlay')) return;
+  document.getElementById('detailOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navigateDetail(dir) {
+  openDetail(_currentIdx + dir);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('detailOverlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closeDetail();
+  if (e.key === 'ArrowLeft') navigateDetail(-1);
+  if (e.key === 'ArrowRight') navigateDetail(1);
+});
+</script>
+{% endif %}
+
+</body>
+</html>

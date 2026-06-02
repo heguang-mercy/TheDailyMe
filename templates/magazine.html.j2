@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheDailyMe — {{ date }}</title>
+<style>
+/* ═══ 杂志排版 · Magazine Editorial ═══ */
+/* Garamond / 暖色底 / 大标题 / 装饰线 / 首字下沉 */
+
+{% if components_css %}
+{{ components_css }}
+{% endif %}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap');
+
+:root {
+  --bg: #faf5ed;
+  --text: #2c2416;
+  --muted: #8a7e6b;
+  --accent: #c8a256;
+  --border: #d4c9b5;
+  --surface: #fefcf7;
+  --dark: #1a1208;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1812;
+    --text: #e8dcc8;
+    --muted: #9a8e7a;
+    --accent: #d4b060;
+    --border: #3a3228;
+    --surface: #221e18;
+    --dark: #f0e0c0;
+  }
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: "Georgia", "Noto Serif SC", "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 56px 40px;
+  line-height: 1.8;
+}
+
+/* ── 刊头 ──────────────────────────────────── */
+.masthead {
+  text-align: center;
+  margin-bottom: 48px;
+  position: relative;
+}
+.masthead .ornament {
+  font-size: 24px;
+  color: var(--accent);
+  letter-spacing: 12px;
+  margin-bottom: 8px;
+}
+.masthead h1 {
+  font-family: "Playfair Display", "Georgia", "Noto Serif SC", serif;
+  font-size: 64px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 2px;
+  color: var(--dark);
+}
+.masthead .subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  margin-top: 8px;
+}
+.masthead .decorative-line {
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  margin: 20px auto;
+}
+.dateline {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  margin-bottom: 48px;
+}
+
+/* ── 头条特写 ──────────────────────────────── */
+.feature {
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.feature .kicker {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.feature h2 {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.feature h2 a { color: var(--dark); text-decoration: none; }
+.feature h2 a:hover { color: var(--accent); }
+.feature .deck {
+  font-size: 18px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  max-width: 680px;
+}
+.feature .byline {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+.feature .byline span {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── 侧边重点卡片 ───────────────────────────── */
+.side-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.side-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+.side-card .card-kicker {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.side-card h4 {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.side-card h4 a { color: var(--dark); text-decoration: none; }
+.side-card h4 a:hover { color: var(--accent); }
+.side-card .card-meta {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── 分类版块 ──────────────────────────────── */
+.section {
+  margin-bottom: 40px;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.section-header h3 {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 24px;
+  font-weight: 900;
+  font-style: italic;
+  display: inline-block;
+  position: relative;
+}
+.section-header h3::before,
+.section-header h3::after {
+  content: "✦";
+  color: var(--accent);
+  font-size: 12px;
+  margin: 0 16px;
+  font-style: normal;
+  vertical-align: middle;
+}
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.section-item {
+  padding: 16px 20px;
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+}
+.section-item h4 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.section-item h4 a { color: var(--dark); text-decoration: none; }
+.section-item h4 a:hover { color: var(--accent); }
+.section-item .summary {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+.section-item .meta {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── 天气简报 ──────────────────────────────── */
+.weather-ribbon {
+  text-align: center;
+  padding: 24px 0;
+  margin: 32px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.weather-ribbon .weather-item {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 16px;
+  font-style: italic;
+}
+
+/* ── 页脚 ──────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding-top: 32px;
+  margin-top: 24px;
+  border-top: 2px solid var(--accent);
+}
+.footer .colophon {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+@media (max-width: 768px) {
+  body { padding: 24px 16px; }
+  .masthead h1 { font-size: 36px; }
+  .feature h2 { font-size: 26px; }
+  .section-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── 刊头 ── -->
+<header class="masthead">
+  <div class="ornament">✦ ✦ ✦</div>
+  <h1>The Daily Me</h1>
+  <p class="subtitle">{{ user_name }}的个人日报</p>
+  <div class="decorative-line"></div>
+</header>
+<div class="dateline">
+  {{ date }} &nbsp;·&nbsp; 第 {{ vol }} 期 &nbsp;·&nbsp; 本日 {{ total_articles }} 则{% if has_ai %} &nbsp;·&nbsp; AI 增强版{% endif %}
+</div>
+
+{% if daily_briefing %}
+<div class="daily-briefing">
+  <div class="briefing-label">
+    今日必读 <span class="ai-badge">AI 生成</span>
+  </div>
+  <p class="briefing-text">{{ daily_briefing }}</p>
+</div>
+{% endif %}
+
+<!-- ── 头条特写 ── -->
+{% if headline %}
+<div class="feature{% if has_ai %} ai-headline-trigger{% endif %}"
+     {% if has_ai %}onclick="openDetail(0)" title="点击查看 AI 深度解读"{% endif %}>
+  <div class="kicker">{{ headline.source }} · 头条特写{% if has_ai %} <span class="ai-score">{{ ai_headlines[0].importance_score }}/10</span>{% endif %}</div>
+  <h2>{{ headline.title }}</h2>
+  {% if headline.summary %}<p class="deck">{{ headline.summary }}</p>{% endif %}
+  <p class="byline">来源 <span>{{ headline.source }}</span> · {{ headline.meta }}</p>
+</div>
+{% endif %}
+
+<!-- ── 侧边重点 ── -->
+{% if side_headlines %}
+<div class="side-cards">
+  {% for item in side_headlines %}
+  <div class="side-card">
+    <div class="card-kicker">{{ item.source }}</div>
+    <h4>{% if item.url %}<a href="{{ item.url }}" target="_blank">{% endif %}{{ item.title }}{% if item.url %}</a>{% endif %}</h4>
+    <p class="card-meta">{{ item.meta }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ── 分类版块 ── -->
+{% for cat_name, cat_label, cat_articles in categories %}
+<div class="section">
+  <div class="section-header">
+    <h3>{{ cat_label }}</h3>
+  </div>
+  <div class="section-grid">
+    {% for article in cat_articles %}
+    <div class="section-item">
+      <h4>{% if article.url %}<a href="{{ article.url }}" target="_blank">{% endif %}{{ article.title }}{% if article.url %}</a>{% endif %}</h4>
+      {% if article.summary %}<p class="summary">{{ article.summary }}</p>{% endif %}
+      <p class="meta">{% if article.sub_topic %}<span class="sub-topic-tag">{{ article.sub_topic }}</span>{% endif %}{{ article.source }} · {% if article.quality_score > 0 %}<span class="quality-badge">{{ article.quality_score }}分</span>{% endif %}{{ article.meta }}</p>
+    </div>
+    {% endfor %}
+    {% if not cat_articles %}
+    <div class="section-item"><p class="summary" style="font-style:italic;">本期暂无内容</p></div>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+
+<!-- ── 天气简报 ── -->
+{% if weather_items %}
+<div class="weather-ribbon">
+  {% for w in weather_items %}
+  <span class="weather-item">{{ w.title }} · {{ w.summary }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+
+<footer class="footer">
+  <p class="colophon">TheDailyMe · {{ year }} · Magazine Edition</p>
+</footer>
+
+{% if has_ai %}
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+  <div class="detail-panel" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeDetail()" title="关闭">&times;</button>
+    <div class="detail-category">
+      <span id="detailCategory"></span>
+      <span class="score" id="detailScore"></span>
+    </div>
+    <h2 id="detailTitle"></h2>
+    <div class="detail-meta">
+      <span id="detailSource"></span>
+      <span id="detailReason"></span>
+    </div>
+    <div class="detail-body" id="detailBody"></div>
+    <div class="detail-source">
+      <span class="source-label"><i class="icon icon-paperclip"></i> 信息来源</span>
+      <a class="source-btn" id="detailSourceUrl" href="#" target="_blank" rel="noopener">查看原文 &rarr;</a>
+    </div>
+    <div class="detail-nav">
+      <button id="detailPrev" onclick="navigateDetail(-1)">&larr; 上一条</button>
+      <button id="detailNext" onclick="navigateDetail(1)">下一条 &rarr;</button>
+    </div>
+  </div>
+</div>
+<script>
+var _aiHeadlines = {{ ai_headlines_json }};
+var _currentIdx = 0;
+var CAT_LABELS = {"tech":"科技","climate":"气候","gaming":"游戏","sports":"体育","movies":"影视","music":"音乐"};
+function openDetail(idx) {
+  if (idx < 0 || idx >= _aiHeadlines.length) return;
+  _currentIdx = idx;
+  var h = _aiHeadlines[idx];
+  document.getElementById('detailCategory').textContent = (CAT_LABELS[h.category] || h.category);
+  document.getElementById('detailScore').textContent = '重要性: ' + h.importance_score + '/10';
+  document.getElementById('detailTitle').textContent = h.ai_title;
+  document.getElementById('detailSource').textContent = '来源: ' + h.source;
+  document.getElementById('detailReason').textContent = h.importance_reason || '';
+  document.getElementById('detailBody').innerHTML = '<p>' + h.ai_detail.replace(/\n/g, '</p><p>') + '</p>';
+  document.getElementById('detailSourceUrl').href = h.url || '#';
+  document.getElementById('detailPrev').style.visibility = idx > 0 ? 'visible' : 'hidden';
+  document.getElementById('detailNext').style.visibility = idx < _aiHeadlines.length - 1 ? 'visible' : 'hidden';
+  document.getElementById('detailOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeDetail(e) {
+  if (e && e.target !== document.getElementById('detailOverlay')) return;
+  document.getElementById('detailOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navigateDetail(dir) { openDetail(_currentIdx + dir); }
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('detailOverlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closeDetail();
+  if (e.key === 'ArrowLeft') navigateDetail(-1);
+  if (e.key === 'ArrowRight') navigateDetail(1);
+});
+</script>
+{% endif %}
+
+</body>
+</html>

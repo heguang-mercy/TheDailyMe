@@ -1,0 +1,3 @@
+/* TheDailyMe — 主题入口（兼容旧的 style.css 引用） */
+/* 实际主题在 themes/ 目录下，由 daily.py 按 layout 配置选择加载 */
+/* 此文件仅用于向后兼容 */
