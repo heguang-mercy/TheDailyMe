@@ -156,11 +156,11 @@ def send_daily_brief(config: dict, result: dict, date_str: str,
         email_smtp_port: 465
         email_user: ""          # 发件邮箱
         email_pass: ""          # 密码/授权码
-        email_to: ""            # 收件邮箱
+        email_to: ""            # 收件邮箱（多个用逗号隔开，或 YAML 列表）
 
     pages_url: GitHub Pages 或部署 URL，生成日报链接
 
-    返回 {"wechat": bool, "email": bool}
+    返回 {"wechat": bool, "email": {"addr": bool, "_all": bool}}
     """
     notify_cfg = config.get("notify", {})
     if not notify_cfg:
@@ -178,17 +178,36 @@ def send_daily_brief(config: dict, result: dict, date_str: str,
     # 邮件
     smtp_host = notify_cfg.get("email_smtp_host", "")
     if smtp_host:
-        # 如果日报 HTML 在 result 里，作为邮件正文发送
-        html = result.get("html", "")
-        status["email"] = send_email(
-            smtp_host=smtp_host,
-            smtp_port=notify_cfg.get("email_smtp_port", 465),
-            user=notify_cfg.get("email_user", ""),
-            password=notify_cfg.get("email_pass", ""),
-            to_addr=notify_cfg.get("email_to", ""),
-            date_str=date_str,
-            html_content=html,
-            pages_url=pages_url,
-        )
+        # 支持多个收件箱：逗号分隔 or YAML 列表
+        raw_to = notify_cfg.get("email_to", "")
+        if isinstance(raw_to, list):
+            to_addrs = raw_to
+        elif isinstance(raw_to, str):
+            to_addrs = [a.strip() for a in raw_to.split(",") if a.strip()]
+        else:
+            to_addrs = []
+
+        if not to_addrs:
+            logger.warning("邮件配置了 SMTP 但未指定收件人 (email_to)")
+        else:
+            status["email"] = {}
+            html = result.get("html", "")
+            for addr in to_addrs:
+                ok = send_email(
+                    smtp_host=smtp_host,
+                    smtp_port=notify_cfg.get("email_smtp_port", 465),
+                    user=notify_cfg.get("email_user", ""),
+                    password=notify_cfg.get("email_pass", ""),
+                    to_addr=addr,
+                    date_str=date_str,
+                    html_content=html,
+                    pages_url=pages_url,
+                )
+                status["email"][addr] = ok
+                if ok:
+                    logger.info("  邮件 -> %s [OK]", addr)
+                else:
+                    logger.warning("  邮件 -> %s [FAIL]", addr)
+            status["email"]["_all"] = all(status["email"].values())
 
     return status
