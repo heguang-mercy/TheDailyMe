@@ -104,7 +104,7 @@ class AIService:
                 "title": a.title,
                 "source": a.source,
                 "category": a.category,
-                "summary": (a.summary or "")[:300],
+                "summary": (a.summary or "")[:150],
                 "meta": a.meta,
             })
 
@@ -223,7 +223,7 @@ class AIService:
                 key = str(id(a))
                 items[key] = {
                     "title": a.title,
-                    "summary": (a.summary or "")[:300],
+                    "summary": (a.summary or "")[:150],
                 }
 
             system = (
