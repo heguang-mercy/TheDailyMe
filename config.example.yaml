@@ -54,6 +54,12 @@ sources:
     reddit_music: true
     pitchfork_rss: true
     billboard_rss: true
+# ── 翻译英文内容为中文（可选）────
+# 启用后自动翻译英文新闻标题和摘要
+translate:
+  enabled: false
+
+# ── AI 增强（可选）────────────────────
 ai:
   enabled: true
   api_key: your-api-key-here

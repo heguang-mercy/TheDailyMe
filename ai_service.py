@@ -179,6 +179,93 @@ class AIService:
 
         return self._call(system, user, temperature=0.7, max_tokens=500) or ""
 
+    # ═══════════════════════════════════════════════════════════
+    #  批量翻译
+    # ═══════════════════════════════════════════════════════════
+
+    def translate_batch(self, articles: list[Article],
+                        target_lang: str = "zh") -> int:
+        """
+        批量翻译英文文章标题和摘要为中文，原地修改 Article 对象。
+
+        跳过已为中文的文章（CJK 字符占比 > 50%）。
+
+        返回成功翻译的文章数量。
+        """
+        # 筛出需要翻译的英文文章
+        need_translate = []
+        for a in articles:
+            text = a.title + " " + (a.summary or "")
+            if not text.strip():
+                continue
+            cjk = sum(1 for ch in text if '\u4e00' <= ch <= '\u9fff' or
+                      '\u3400' <= ch <= '\u4dbf')
+            ratio = cjk / len(text) if text else 0
+            if ratio < 0.3:  # 中文占比 < 30%，视为英文
+                need_translate.append(a)
+
+        if not need_translate:
+            logger.info("翻译: 0 篇需要翻译（全部已是中文）")
+            return 0
+
+        logger.info("翻译: %d 篇英文文章 → 中文...", len(need_translate))
+
+        # 每批最多 40 篇
+        batch_size = 40
+        translated = 0
+
+        for batch_start in range(0, len(need_translate), batch_size):
+            batch = need_translate[batch_start:batch_start + batch_size]
+
+            # 构建输入
+            items = {}
+            for a in batch:
+                key = str(id(a))
+                items[key] = {
+                    "title": a.title,
+                    "summary": (a.summary or "")[:300],
+                }
+
+            system = (
+                "你是一个专业的中英翻译引擎。请将以下英文新闻标题和摘要翻译成"
+                "流畅自然的中文。注意：\n"
+                "1. 标题翻译保留新闻感和吸引力，15-30 字最佳\n"
+                "2. 摘要翻译保持信息完整，简洁明了\n"
+                "3. 专业名词保留英文原文（如 GitHub、OpenAI、NBA）\n"
+                "4. 只返回 JSON 对象，key 与输入一致，不要有任何其他文字"
+            )
+
+            user = json.dumps(items, ensure_ascii=False, indent=2)
+
+            response = self._call(system, user, temperature=0.3, max_tokens=2048)
+            if not response:
+                logger.warning("翻译 API 返回空，跳过剩余 %d 篇", len(batch))
+                break
+
+            try:
+                response = response.strip()
+                if response.startswith("```"):
+                    lines = response.split("\n")
+                    response = "\n".join(lines[1:-1])
+                result = json.loads(response)
+            except json.JSONDecodeError:
+                logger.warning("翻译结果 JSON 解析失败")
+                continue
+
+            for a in batch:
+                key = str(id(a))
+                if key in result and isinstance(result[key], dict):
+                    t = result[key]
+                    if isinstance(t.get("title"), str) and t["title"].strip():
+                        a.title = t["title"].strip()
+                        a._translated = True
+                    if isinstance(t.get("summary"), str) and t["summary"].strip():
+                        a.summary = t["summary"].strip()
+                    translated += 1
+
+        logger.info("翻译: 完成 %d 篇", translated)
+        return translated
+
     def generate_detail_content(self, article_title: str, article_summary: str,
                                  article_source: str, article_category: str) -> str:
         """为单篇文章生成二级详情页的深度内容"""
