@@ -58,6 +58,7 @@ sources:
 # 启用后自动翻译英文新闻标题和摘要
 translate:
   enabled: false
+  use_ai: false    # true=DeepSeek 翻译, false=Google/百度免费
 
 # ── AI 增强（可选）────────────────────
 ai:

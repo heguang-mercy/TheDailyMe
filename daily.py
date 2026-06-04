@@ -409,21 +409,33 @@ def generate_daily(
     except ImportError:
         pass
 
-    # 1.8 翻译英文文章（如果开启了 AI 和翻译）
+    # 1.8 翻译英文文章
     translate_cfg = config.get("translate", {})
     if translate_cfg.get("enabled", False):
-        ai_service = _init_ai_service(config)
-        if ai_service is not None:
-            all_articles = []
-            for cat_arts in articles_by_cat.values():
-                all_articles.extend(cat_arts)
-            if progress_callback:
-                progress_callback("translating", f"正在翻译英文内容...")
-            n = ai_service.translate_batch(all_articles, target_lang="zh")
-            if progress_callback and n > 0:
-                progress_callback("translating", f"已翻译 {n} 篇英文文章")
-        else:
-            logger.warning("翻译已启用但 AI 未配置，跳过翻译")
+        all_articles = []
+        for cat_arts in articles_by_cat.values():
+            all_articles.extend(cat_arts)
+        if progress_callback:
+            progress_callback("translating", "正在翻译英文内容...")
+        use_ai = translate_cfg.get("use_ai", False)
+        if use_ai:
+            ai_service = _init_ai_service(config)
+            if ai_service:
+                n = ai_service.translate_batch(all_articles, target_lang="zh")
+            else:
+                logger.warning("AI 翻译已启用但 AI 未配置，回退到朴素翻译")
+                use_ai = False
+        if not use_ai:
+            # 朴素翻译（Google/Baidu 免费接口，零依赖）
+            try:
+                from translator import batch_translate
+                n = batch_translate(all_articles)
+            except ImportError:
+                logger.warning("translator 模块未找到，尝试 AI 翻译")
+                ai_service = _init_ai_service(config)
+                n = ai_service.translate_batch(all_articles) if ai_service else 0
+        if progress_callback and n and n > 0:
+            progress_callback("translating", f"已翻译 {n} 篇英文文章")
 
     # 2. 选头条（优先 AI，降级传统）
     ai_enabled: bool = config.get("ai", {}).get("enabled", False) and config.get("ai", {}).get("api_key", "")
