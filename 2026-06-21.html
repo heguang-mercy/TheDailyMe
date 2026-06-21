@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheDailyMe — 2026年06月21日</title>
+<style>
+/* ── 内联样式（所有 CSS 在此，自包含单文件） ── */
+/* TheDailyMe — 报纸头版样式 */
+/* 经典 broadsheet 风格：衬线体 + 多栏 + 分割线 */
+
+:root {
+  --bg: #fdfaf3;
+  --text: #1a1a1a;
+  --muted: #666;
+  --border: #1a1a1a;
+  --accent: #8b0000;
+  --tag-bg: #f0ebe0;
+  --rule: #1a1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a16;
+    --text: #e8e4d8;
+    --muted: #999;
+    --border: #555;
+    --accent: #c44;
+    --tag-bg: #2a2a24;
+    --rule: #555;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Serif SC", "Noto Serif", "Georgia", "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  line-height: 1.7;
+}
+
+/* ── 报头 ────────────────────────────────────── */
+
+.masthead {
+  text-align: center;
+  border-bottom: 3px double var(--rule);
+  padding-bottom: 20px;
+  margin-bottom: 16px;
+}
+
+.masthead h1 {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.masthead .subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.dateline {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 6px 0;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.dateline span {
+  margin: 0 12px;
+}
+
+/* ── 头条区 ──────────────────────────────────── */
+
+.headline-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 24px;
+}
+
+.headline-main h2 {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.headline-main h2 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.headline-main h2 a:hover {
+  color: var(--accent);
+}
+
+.headline-main .summary {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.headline-main .meta {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.headline-side {
+  border-left: 1px solid var(--rule);
+  padding-left: 20px;
+}
+
+.headline-side h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.headline-side .side-item {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px dotted var(--border);
+}
+
+.headline-side .side-item:last-child {
+  border-bottom: none;
+}
+
+.headline-side .side-item h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.headline-side .side-item h4 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.headline-side .side-item h4 a:hover {
+  color: var(--accent);
+}
+
+.headline-side .side-item .side-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ── 三栏分类区 ──────────────────────────────── */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 24px;
+}
+
+.category-col h3 {
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.category-col .article-item {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dotted var(--border);
+}
+
+.category-col .article-item:last-child {
+  border-bottom: none;
+}
+
+.category-col .article-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
+
+.category-col .article-item h4 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.category-col .article-item h4 a:hover {
+  color: var(--accent);
+}
+
+.category-col .article-item .summary {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+
+.category-col .article-item .meta {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.category-col .article-item .source-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--tag-bg);
+  padding: 1px 6px;
+  margin-right: 6px;
+}
+
+/* ── 底部天气条 ──────────────────────────────── */
+
+.weather-ribbon {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  margin-top: 16px;
+}
+
+.weather-ribbon .weather-item {
+  display: inline-block;
+  margin: 0 16px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+/* ── 响应式 ──────────────────────────────────── */
+
+@media (max-width: 768px) {
+  body { padding: 20px 16px; }
+  .masthead h1 { font-size: 32px; }
+  .headline-section { grid-template-columns: 1fr; }
+  .headline-side { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 16px; }
+  .category-grid { grid-template-columns: 1fr; }
+  .headline-main h2 { font-size: 24px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   TheDailyMe — AI 增强组件样式
+   所有样式使用 CSS 变量，与各主题无缝融合
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── CSS 变量（主题可覆盖） ────────────────── */
+:root {
+  --ai-accent: var(--accent, #8b0000);
+  --ai-accent-text: #fff;
+  --ai-bg: var(--tag-bg, #f4f0eb);
+  --ai-bg-hover: color-mix(in srgb, var(--ai-bg) 85%, var(--ai-accent));
+  --ai-glow: 0 0 0 transparent;
+  --ai-radius: 6px;
+}
+
+/* ── 今日必读卡片 ─────────────────────────── */
+.daily-briefing {
+  background: var(--ai-bg);
+  border-left: 4px solid var(--ai-accent);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  border-radius: 0 var(--ai-radius) var(--ai-radius) 0;
+  line-height: 1.7;
+}
+
+.briefing-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-badge {
+  display: inline-block;
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.briefing-text {
+  font-size: 15px;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ── AI 头条高亮 ──────────────────────────── */
+.ai-highlight {
+  position: relative;
+}
+
+.ai-headline-trigger {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.ai-headline-trigger:hover {
+  background: var(--ai-bg);
+  border-radius: var(--ai-radius);
+}
+
+.ai-reason {
+  color: var(--ai-accent);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.ai-mode-badge {
+  color: var(--ai-accent);
+  text-shadow: 0 0 6px var(--ai-glow, transparent);
+  font-weight: 700;
+}
+
+.ai-score {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-left: 8px;
+  vertical-align: middle;
+  letter-spacing: 0.5px;
+}
+
+/* ── 子主题标签 ───────────────────────────── */
+.sub-topic-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  background: var(--ai-bg);
+  color: var(--ai-accent);
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-right: 6px;
+  letter-spacing: 0.5px;
+  border: 1px solid color-mix(in srgb, var(--ai-accent) 30%, transparent);
+}
+
+/* ── 质量评分徽章 ─────────────────────────── */
+.quality-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ai-accent);
+  margin-left: 6px;
+  padding: 0 5px;
+  border: 1px solid color-mix(in srgb, var(--ai-accent) 40%, transparent);
+  border-radius: 3px;
+}
+
+/* ── AI 详情弹窗 ──────────────────────────── */
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 20px;
+  overflow-y: auto;
+}
+.detail-overlay.active {
+  display: flex;
+}
+
+.detail-panel {
+  background: var(--bg);
+  color: var(--text);
+  width: 100%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 36px 40px;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+  animation: detailIn 0.2s ease;
+  border: 1px solid var(--border);
+}
+@keyframes detailIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
+}
+.close-btn:hover {
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  border-color: var(--ai-accent);
+}
+
+.detail-category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.detail-category .score {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+#detailTitle {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+
+.detail-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.detail-meta span {
+  font-weight: 500;
+}
+
+.detail-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.detail-body p {
+  margin-bottom: 12px;
+}
+.detail-body p:last-child {
+  margin-bottom: 0;
+}
+
+.detail-source {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.detail-source .source-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.source-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  border-radius: var(--ai-radius);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.source-btn:hover {
+  opacity: 0.85;
+}
+
+.detail-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.detail-nav button {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--ai-radius);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.detail-nav button:hover {
+  background: var(--ai-bg);
+  border-color: var(--ai-accent);
+}
+.detail-nav button:first-child {
+  visibility: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Math Curve Loader — Spiral Search (Archimedean Spiral)
+   来源: github.com/Paidax01/math-curve-loaders
+   ═══════════════════════════════════════════════════════════ */
+
+.spiral-loader {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  display: block;
+  animation: spiral-breathe 6.8s ease-in-out infinite;
+}
+
+.spiral-trail {
+  stroke: var(--ai-accent, var(--accent, #333));
+  animation: spiral-search 7.8s ease-in-out infinite;
+}
+
+.spiral-path {
+  stroke: var(--ai-accent, var(--accent, #333));
+  stroke-width: 0.8;
+  opacity: 0.12;
+}
+
+@keyframes spiral-search {
+  0%   { stroke-dashoffset: 0; opacity: 0.15; }
+  20%  { opacity: 0.85; }
+  50%  { stroke-dashoffset: -1800; opacity: 0.9; }
+  80%  { opacity: 0.85; }
+  100% { stroke-dashoffset: -3600; opacity: 0.15; }
+}
+
+@keyframes spiral-breathe {
+  0%, 100% { transform: scale(0.96); opacity: 0.7; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+
+/* ── 响应式 ────────────────────────────────── */
+@media (max-width: 768px) {
+  .detail-panel {
+    padding: 24px 20px;
+    max-height: 90vh;
+  }
+  #detailTitle {
+    font-size: 20px;
+  }
+  .daily-briefing {
+    padding: 14px 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Icon System — Lucide SVG 图标（mask-image 方式）
+   用法：<i class="icon icon-newspaper"></i>
+   颜色继承 currentColor，尺寸默认 1em × 1em
+   ═══════════════════════════════════════════════════════════ */
+
+.icon {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: -0.2em;
+  background: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* ── 通用 / UI 类 ─────────────────────────── */
+.icon-newspaper  { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2'/%3E%3Cpath d='M18 14h-8'/%3E%3Cpath d='M15 18h-5'/%3E%3Cpath d='M10 6h8v4h-8z'/%3E%3C/svg%3E"); }
+.icon-settings   { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E"); }
+.icon-archive    { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='5' x='2' y='3' rx='1'/%3E%3Cpath d='M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8'/%3E%3Cpath d='M10 12h4'/%3E%3C/svg%3E"); }
+.icon-user       { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E"); }
+.icon-palette    { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='13.5' cy='6.5' r='1.5'/%3E%3Ccircle cx='17.5' cy='10.5' r='1.5'/%3E%3Ccircle cx='8.5' cy='7.5' r='1.5'/%3E%3Ccircle cx='6.5' cy='12.5' r='1.5'/%3E%3Cpath d='M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.5-4.5-10-10-10z'/%3E%3C/svg%3E"); }
+.icon-zap        { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/%3E%3C/svg%3E"); }
+.icon-refresh    { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'/%3E%3Cpath d='M3 3v5h5'/%3E%3Cpath d='M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16'/%3E%3Cpath d='M16 16h5v5'/%3E%3C/svg%3E"); }
+.icon-save       { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z'/%3E%3Cpolyline points='17 21 17 13 7 13 7 21'/%3E%3Cpolyline points='7 3 7 8 15 8'/%3E%3C/svg%3E"); }
+.icon-bot        { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='10' x='3' y='11' rx='2'/%3E%3Ccircle cx='12' cy='5' r='2'/%3E%3Cpath d='M12 7v4'/%3E%3Cline x1='8' x2='8' y1='16' y2='16'/%3E%3Cline x1='16' x2='16' y1='16' y2='16'/%3E%3C/svg%3E"); }
+.icon-paperclip  { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48'/%3E%3C/svg%3E"); }
+
+/* ── 类别图标 ──────────────────────────────── */
+.icon-flask      { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 3h6'/%3E%3Cpath d='M10 3v8.17a3 3 0 0 1-.78 2.1L4.58 18.6A2 2 0 0 0 6 22h12a2 2 0 0 0 1.42-3.4l-4.64-5.33A3 3 0 0 1 14 11.17V3h-4z'/%3E%3Ccircle cx='12' cy='19' r='1.5'/%3E%3C/svg%3E"); }
+.icon-sun        { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2'/%3E%3Cpath d='M12 20v2'/%3E%3Cpath d='m4.93 4.93 1.41 1.41'/%3E%3Cpath d='m17.66 17.66 1.41 1.41'/%3E%3Cpath d='M2 12h2'/%3E%3Cpath d='M20 12h2'/%3E%3Cpath d='m6.34 17.66-1.41 1.41'/%3E%3Cpath d='m19.07 4.93-1.41 1.41'/%3E%3C/svg%3E"); }
+.icon-gamepad    { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='6' x2='10' y1='12' y2='12'/%3E%3Cline x1='8' x2='8' y1='10' y2='14'/%3E%3Cline x1='15' x2='15.01' y1='13' y2='13'/%3E%3Cline x1='18' x2='18.01' y1='11' y2='11'/%3E%3Crect width='20' height='12' x='2' y='6' rx='2'/%3E%3C/svg%3E"); }
+.icon-trophy     { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6'/%3E%3Cpath d='M18 9h1.5a2.5 2.5 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M12 16V7a3 3 0 0 0-6 0v9'/%3E%3Cpath d='M18 16v-3a3 3 0 0 0-6 0v3'/%3E%3C/svg%3E"); }
+.icon-film       { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='3' rx='2'/%3E%3Cpath d='M7 3v18'/%3E%3Cpath d='M3 7.5h4'/%3E%3Cpath d='M3 12h18'/%3E%3Cpath d='M3 16.5h4'/%3E%3Cpath d='M17 3v18'/%3E%3Cpath d='M17 7.5h4'/%3E%3Cpath d='M17 16.5h4'/%3E%3C/svg%3E"); }
+.icon-music      { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Ccircle cx='18' cy='16' r='3'/%3E%3C/svg%3E"); }
+.icon-search     { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E"); }
+.icon-check      { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); }
+.icon-alert      { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z'/%3E%3Cline x1='12' x2='12' y1='9' y2='13'/%3E%3Cline x1='12' x2='12.01' y1='17' y2='17'/%3E%3C/svg%3E"); }
+.icon-tag        { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2H2v10l9.3 9.3a2.4 2.4 0 0 0 3.4 0L21.3 15a2.4 2.4 0 0 0 0-3.4Z'/%3E%3Ccircle cx='7' cy='7' r='1.5'/%3E%3C/svg%3E"); }
+
+/* ═══════════════════════════════════════════════════════════
+   UI 控件美化 — 按钮 / 输入框 / 滑块 / 下拉框 / Toggle
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 按钮增强 ─────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+}
+.btn-primary {
+  background: var(--accent-bg, #1a1a1a);
+  color: var(--accent-text, #fff);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+/* ── 输入框增强 ───────────────────────────── */
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 9px 13px;
+  border: 1.5px solid var(--border, #ddd);
+  border-radius: 7px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text, #111);
+  background: var(--bg, #fff);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--accent, #333);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #333) 15%, transparent);
+}
+input[type="text"]::placeholder {
+  color: var(--muted, #999);
+  opacity: 0.6;
+}
+
+/* ── 下拉框美化 ───────────────────────────── */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* ── Range 滑块美化 ───────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--border, #ddd);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-bg, #333);
+  border: 2px solid var(--bg, #fff);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-bg, #333);
+  border: 2px solid var(--bg, #fff);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* ── Toggle 开关增强 ──────────────────────── */
+.toggle-switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+}
+.toggle-switch .slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border, #ccc);
+  border-radius: 26px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.toggle-switch .slider::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-switch input:checked + .slider {
+  background: var(--accent-bg, #333);
+}
+.toggle-switch input:checked + .slider::after {
+  transform: translateX(20px);
+}
+
+/* ── 卡片/分组增强 ────────────────────────── */
+.settings-section {
+  background: var(--surface, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.settings-section h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--muted);
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.form-group {
+  margin-bottom: 18px;
+}
+.form-group:last-child {
+  margin-bottom: 0;
+}
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  color: var(--text);
+}
+.form-group .hint {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 3px;
+}
+
+/* ── Toast 增强 ───────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  animation: toastIn 0.3s ease;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toast.success {
+  background: #16a34a;
+  color: #fff;
+}
+.toast.error {
+  background: #dc2626;
+  color: #fff;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- ═══ 报头 ═══ -->
+<header class="masthead">
+  <h1>The Daily Me</h1>
+  <p class="subtitle">同学的个人日报</p>
+</header>
+
+<div class="dateline">
+  <span>2026年06月21日</span>
+  <span>|</span>
+  <span>VOL. 172</span>
+  <span>|</span>
+  <span>今日36条</span>
+  <span>|</span><span><i class="icon icon-bot"></i> AI 增强版</span>
+</div>
+
+<!-- ═══ AI 今日必读 ═══ -->
+
+<div class="daily-briefing">
+  <div class="briefing-label">
+    今日必读 <span class="ai-badge">AI 生成</span>
+  </div>
+  <p class="briefing-text">今日必读：全球气候治理再遇挑战，波恩谈判陷入僵局，减排进程面临阻力；专家指出，碳移除技术的大规模推广已成为重回1.5℃目标的关键。娱乐与体育界同样不乏重磅消息：《玩具总动员5》北美首周末狂揽1.71亿美元，刷新年度票房纪录；NHL球星布雷迪·特卡丘克完成重磅转会，加盟佛罗里达美洲豹。此外，SZA等多位知名歌手联名发声，抗议AI训练数据对原创音乐的滥用，引发行业广泛关注。</p>
+</div>
+
+
+<!-- ═══ 头条区 ═══ -->
+
+<div class="headline-section">
+  <div class="headline-main ai-highlight">
+    <h2 class="ai-headline-trigger"
+        onclick="openDetail(0)" title="点击查看 AI 深度解读">
+      波恩气候谈判陷僵局，全球减排进程再受阻
+      <span class="ai-score">9/10</span>
+    </h2>
+    <p class="summary">为期两周的联合国波恩气候谈判于6月19日结束，但各方在关键议题上分歧巨大，未能取得实质性进展。此次“僵局”为年底的COP30大会蒙上阴影，也凸显了全球气候治理的深层困境。</p>
+    <p class="meta">
+      <span class="source-tag">Carbon Brief</span>
+      AI 精选 · 重要性: 9/10
+      
+      <br><small class="ai-reason">气候问题是全球性长期挑战，谈判僵局直接影响未来数年的减排政策和人类生存环境，具有极高新闻价值和深远影响。</small>
+      
+    </p>
+  </div>
+  <div class="headline-side">
+    <h3><i class="icon icon-newspaper"></i> 其他重点</h3>
+    
+    <div class="side-item ai-headline-trigger"
+         onclick="openDetail(1)" title="点击查看 AI 深度解读">
+      <h4>
+        碳移除技术需大规模推广，才能重回1.5℃目标
+        
+        <span class="ai-score">8/10</span>
+        
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">Carbon Brief</span>
+        AI 精选 · 重要性: 8/10
+      </p>
+    </div>
+    
+    <div class="side-item ai-headline-trigger"
+         onclick="openDetail(2)" title="点击查看 AI 深度解读">
+      <h4>
+        《玩具总动员5》北美开画狂揽1.71亿美元，创年度最佳
+        
+        <span class="ai-score">8/10</span>
+        
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">烂番茄</span>
+        AI 精选 · 重要性: 8/10
+      </p>
+    </div>
+    
+    <div class="side-item ai-headline-trigger"
+         onclick="openDetail(3)" title="点击查看 AI 深度解读">
+      <h4>
+        重磅交易！NHL球星布雷迪·特卡丘克加盟佛罗里达美洲豹
+        
+        <span class="ai-score">7/10</span>
+        
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">ESPN</span>
+        AI 精选 · 重要性: 7/10
+      </p>
+    </div>
+    
+    <div class="side-item ai-headline-trigger"
+         onclick="openDetail(4)" title="点击查看 AI 深度解读">
+      <h4>
+        SZA等歌手联名抗议：AI训练数据不应滥用原创音乐
+        
+        <span class="ai-score">7/10</span>
+        
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">Pitchfork</span>
+        AI 精选 · 重要性: 7/10
+      </p>
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- ═══ 三栏分类 ═══ -->
+<div class="category-grid">
+  
+  <div class="category-col">
+    <h3>科技</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://apertvs.ai/" target="_blank">
+          Apertus – Open Foundation Model for Sovereign AI
+        </a>
+      </h4>
+      
+      <p class="meta">
+        <span class="sub-topic-tag">AI</span>
+        <span class="source-tag">Hacker News</span>
+        <span class="quality-badge">10分</span>
+        98 points · 29 comments
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://david.newgas.net/did-my-old-job-only-exist-because-of-fraud/" target="_blank">
+          Did my old job only exist because of fraud?
+        </a>
+      </h4>
+      
+      <p class="meta">
+        <span class="sub-topic-tag">互联网</span>
+        <span class="source-tag">Hacker News</span>
+        <span class="quality-badge">10分</span>
+        82 points · 20 comments
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://alexkritchevsky.com/2026/05/25/everything-is-logarithms.html" target="_blank">
+          Everything Is Logarithms
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">Hacker News</span>
+        <span class="quality-badge">10分</span>
+        66 points · 7 comments
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.v2ex.com/t/1221831#reply0" target="_blank">
+          真是意想不到的操作：有好几个人一起协作向 C++库 fmtlib 加上了 C11 包装接口，确实能用
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">V2EX</span>
+        <span class="quality-badge">8分</span>
+        
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.v2ex.com/t/1221797#reply5" target="_blank">
+          AI 算力大模型优逆讨论
+        </a>
+      </h4>
+      
+      <p class="meta">
+        <span class="sub-topic-tag">AI</span>
+        <span class="source-tag">V2EX</span>
+        <span class="quality-badge">8分</span>
+        5 replies
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.v2ex.com/t/1221760#reply25" target="_blank">
+          我要给 GLM5.2 道歉
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">V2EX</span>
+        <span class="quality-badge">8分</span>
+        25 replies
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://github.com/palmier-io/palmier-pro" target="_blank">
+          palmier-io / palmier-pro
+        </a>
+      </h4>
+      <p class="summary">macOS video editor built for AI</p>
+      <p class="meta">
+        <span class="sub-topic-tag">开源</span>
+        <span class="source-tag">GitHub Trending</span>
+        <span class="quality-badge">10分</span>
+        Swift · 1,829 stars today · 1,829 stars today
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://github.com/calesthio/OpenMontage" target="_blank">
+          calesthio / OpenMontage
+        </a>
+      </h4>
+      <p class="summary">World's first open-source, agentic video production system. 12 pipelines, 52 tools, 500+ agent skills. Turn your AI coding assistant into a full video production studio.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">编程</span>
+        <span class="source-tag">GitHub Trending</span>
+        <span class="quality-badge">10分</span>
+        Python · 993 stars today · 993 stars today
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://github.com/chopratejas/headroom" target="_blank">
+          chopratejas / headroom
+        </a>
+      </h4>
+      <p class="summary">Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 60-95% fewer tokens, same answers. Library, proxy, MCP server.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">编程</span>
+        <span class="source-tag">GitHub Trending</span>
+        <span class="quality-badge">10分</span>
+        Python · 2,617 stars today · 2,617 stars today
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>气候</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.carbonbrief.org/debriefed-19-june-2026-bonn-talks-end-in-gridlock-energys-new-era-oceans-in-climate-negotiations/" target="_blank">
+          DeBriefed 19 June 2026: Bonn talks end in ‘gridlock’ | Energy’s ‘new era’ | Oceans in climate negotiations
+        </a>
+      </h4>
+      <p class="summary">Welcome to Carbon Brief’s DeBriefed. An essential guide to the week’s key developments relating to climate...The postDeBriefed 19 June 2026: Bonn talks end in ‘gridlock’ | Energy’s ‘new era’ | Oceans </p>
+      <p class="meta">
+        
+        <span class="source-tag">Carbon Brief</span>
+        <span class="quality-badge">10分</span>
+        气候变化 · 深度报道
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.carbonbrief.org/bonn-climate-talks-key-outcomes-from-the-june-2026-un-climate-conference/" target="_blank">
+          Bonn climate talks: Key outcomes from the June 2026 UN climate conference
+        </a>
+      </h4>
+      <p class="summary">Two weeks of tense UN climate talks in Bonn, Germany, have produced few tangible outcomes...The postBonn climate talks: Key outcomes from the June 2026 UN climate conferenceappeared first onCarbon Bri</p>
+      <p class="meta">
+        
+        <span class="source-tag">Carbon Brief</span>
+        <span class="quality-badge">10分</span>
+        气候变化 · 深度报道
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.carbonbrief.org/experts-why-carbon-removal-needs-a-major-scale-up-to-return-warming-to-1-5c/" target="_blank">
+          Experts: Why carbon removal needs a ‘major scale up’ to return warming to 1.5C
+        </a>
+      </h4>
+      <p class="summary">Last week, more than 260 researchers convened in Milan to discuss the opportunities, challenges and...The postExperts: Why carbon removal needs a ‘major scale up’ to return warming to 1.5Cappeared fir</p>
+      <p class="meta">
+        
+        <span class="source-tag">Carbon Brief</span>
+        <span class="quality-badge">10分</span>
+        气候变化 · 深度报道
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        
+          Beijing 当前 ☀️ 晴  22.5°C
+        
+      </h4>
+      <p class="summary">风速 6.1 km/h</p>
+      <p class="meta">
+        
+        <span class="source-tag">Open-Meteo 天气</span>
+        
+        实时 · Beijing
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        
+          今天 (2026-06-22)
+        
+      </h4>
+      <p class="summary">☁️ 阴 · 33.4°C / 21.1°C</p>
+      <p class="meta">
+        
+        <span class="source-tag">Open-Meteo 天气</span>
+        <span class="quality-badge">9分</span>
+        Beijing
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        
+          明天 (2026-06-23)
+        
+      </h4>
+      <p class="summary">🌧 毛毛雨 · 31.0°C / 21.1°C · 降水 1.4mm</p>
+      <p class="meta">
+        
+        <span class="source-tag">Open-Meteo 天气</span>
+        <span class="quality-badge">9分</span>
+        Beijing
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        
+          后天 (2026-06-24)
+        
+      </h4>
+      <p class="summary">☁️ 阴 · 33.9°C / 21.1°C</p>
+      <p class="meta">
+        
+        <span class="source-tag">Open-Meteo 天气</span>
+        <span class="quality-badge">9分</span>
+        Beijing
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="http://news.weather.com.cn/2020/07/3366528.shtml" target="_blank">
+          大风蓝色预警！北京大部地区阵风可达7到8级
+        </a>
+      </h4>
+      <p class="summary">受雷雨云团影响，预计，当前至20时本市大部分地区在降雨时伴有短时大风，阵风可达7、8级，请注意防范。</p>
+      <p class="meta">
+        
+        <span class="source-tag">天气资讯</span>
+        <span class="quality-badge">9分</span>
+        中国天气网
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="http://news.weather.com.cn/2020/07/3366526.shtml" target="_blank">
+          北京市气象台发布暴雨黄色预警 局地小时雨强可达50毫米
+        </a>
+      </h4>
+      <p class="summary">受强降雨云团影响，预计，目前至20时，本市将出现局地小时雨强50毫米以上的降水。</p>
+      <p class="meta">
+        <span class="sub-topic-tag">极端天气</span>
+        <span class="source-tag">天气资讯</span>
+        <span class="quality-badge">10分</span>
+        中国天气网
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="http://www.weather.com.cn/life/2020/07/3366507.shtml" target="_blank">
+          夏天到头发越洗越油？可能犯了4个误区
+        </a>
+      </h4>
+      <p class="summary">日常生活中，我们应该如何改善发质，让头发不那么容易出油呢？</p>
+      <p class="meta">
+        
+        <span class="source-tag">天气资讯</span>
+        <span class="quality-badge">9分</span>
+        中国天气网
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>游戏</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://store.steampowered.com/news/271749/" target="_blank">
+          Team Fortress 2 Update Released
+        </a>
+      </h4>
+      <p class="summary">An update to Team Fortress 2 has been released. The update will be applied automatically when you restart Team Fortress 2. The major changes include:Fixed crash related to wearables leaking when weapo</p>
+      <p class="meta">
+        <span class="sub-topic-tag">PC游戏</span>
+        <span class="source-tag">Steam 新闻</span>
+        <span class="quality-badge">10分</span>
+        Steam 新闻
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://store.steampowered.com/news/270398/" target="_blank">
+          Left 4 Dead - Update
+        </a>
+      </h4>
+      <p class="summary">An update has been released for Left 4 Dead:- Fixed several exploits that could be used to crash servers or remote players.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">PC游戏</span>
+        <span class="source-tag">Steam 新闻</span>
+        <span class="quality-badge">10分</span>
+        Steam 新闻
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.gamersky.com/news/202606/2160156.shtml" target="_blank">
+          《罪恶都市》汤米不会在《GTA6》被主角干掉吧？
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">游民星空</span>
+        <span class="quality-badge">8分</span>
+        游民星空
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.gamersky.com/news/202606/2160179.shtml" target="_blank">
+          “老婆不能不是第一次？” 滴露广告物化女性引众怒
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">游民星空</span>
+        <span class="quality-badge">8分</span>
+        游民星空
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.gamersky.com/news/202606/2160182.shtml" target="_blank">
+          世界杯G组激战！比利时0比0战平伊朗出线形势堪忧
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">游民星空</span>
+        <span class="quality-badge">8分</span>
+        游民星空
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>音乐</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.billboard.com/music/music-news/kanye-west-july-4-concert-san-antonio-mayor-cancel-1236277359/" target="_blank">
+          Ye’s July 4 Concert Should Be Canceled, San Antonio Mayor Says
+        </a>
+      </h4>
+      <p class="summary">West's Fourth of July stadium show is scheduled to go on at the Alamodome downtown.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">榜单</span>
+        <span class="source-tag">Billboard</span>
+        <span class="quality-badge">10分</span>
+        Billboard
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.billboard.com/lists/top-grossing-music-biopics-movies/" target="_blank">
+          ‘Michael’ Pulls Further Ahead of ‘Bohemian Rhapsody’ as Top-Grossing Music Biopic Worldwide: See the Top 25
+        </a>
+      </h4>
+      <p class="summary">It's closing in onOppenheimeras the top-grossing biopic, period.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">榜单</span>
+        <span class="source-tag">Billboard</span>
+        <span class="quality-badge">10分</span>
+        Billboard
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.billboard.com/music/music-news/rod-stewart-uses-oxygen-tank-after-nearly-fainting-onstage-1236277350/" target="_blank">
+          Rod Stewart Uses Oxygen Tank During Concert After Nearly Fainting Onstage
+        </a>
+      </h4>
+      <p class="summary">"The show must go on," the 81-year-old rocker told the Utah crowd.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">榜单</span>
+        <span class="source-tag">Billboard</span>
+        <span class="quality-badge">10分</span>
+        Billboard
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://pitchfork.com/news/man-dies-after-falling-at-goose-madison-square-garden-show/" target="_blank">
+          Man Dies After Falling at Goose Madison Square Garden Show
+        </a>
+      </h4>
+      <p class="summary">The band said they were “deeply saddened and heartbroken” over the incident</p>
+      <p class="meta">
+        <span class="sub-topic-tag">独立/摇滚</span>
+        <span class="source-tag">Pitchfork</span>
+        <span class="quality-badge">10分</span>
+        Pitchfork
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://pitchfork.com/news/sza-kenneth-blume-decry-use-of-their-songs-in-ai-training-data-sets/" target="_blank">
+          SZA, Kenneth Blume Decry Use of Their Songs in AI Training Data Sets
+        </a>
+      </h4>
+      <p class="summary">“I can’t imagine being proud to earn a paycheck obliterating the work and dreams of artists”</p>
+      <p class="meta">
+        <span class="sub-topic-tag">独立/摇滚</span>
+        <span class="source-tag">Pitchfork</span>
+        <span class="quality-badge">10分</span>
+        Pitchfork
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://pitchfork.com/news/ken-carson-returns-with-new-album-xperiment/" target="_blank">
+          Ken Carson Returns With New Album Xperiment
+        </a>
+      </h4>
+      <p class="summary">The rapper’s fifth studio LP arrives on July 3</p>
+      <p class="meta">
+        <span class="sub-topic-tag">独立/摇滚</span>
+        <span class="source-tag">Pitchfork</span>
+        <span class="quality-badge">10分</span>
+        Pitchfork
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>体育</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.espn.com/golf/story/_/id/49138694/wyndham-clark-holds-shinnecock-win-2nd-us-open-title" target="_blank">
+          Clark rides roller coaster to 2nd U.S. Open crown
+        </a>
+      </h4>
+      <p class="summary">null</p>
+      <p class="meta">
+        
+        <span class="source-tag">ESPN</span>
+        <span class="quality-badge">8分</span>
+        ESPN
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.espn.com/golf/story/_/id/49129852/us-open-2026-final-round-sights-sounds-best-shots" target="_blank">
+          U.S. Open 2026: Wyndham Clark wins it all and more...
+        </a>
+      </h4>
+      <p class="summary">Wyndham Clark is your 2026 U.S. Open champion. Here's a look back at how he pulled it off in a dramatic Sunday finish.</p>
+      <p class="meta">
+        
+        <span class="source-tag">ESPN</span>
+        <span class="quality-badge">10分</span>
+        ESPN
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.espn.com/nhl/story/_/id/49138139/panthers-acquire-brady-tkachuk-senators-sources-say" target="_blank">
+          Sources: B. Tkachuk to Panthers, joins brother
+        </a>
+      </h4>
+      <p class="summary">Brady Tkachuk, captain of the Ottawa Senators, was dealt to the Florida Panthers, sources said Sunday, for a host of draft picks, allowing the wing to join his brother, Matthew, on a two-time Stanley </p>
+      <p class="meta">
+        
+        <span class="source-tag">ESPN</span>
+        <span class="quality-badge">10分</span>
+        ESPN
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>影视</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://editorial.rottentomatoes.com/article/weekend-box-office-toy-story-5/" target="_blank">
+          Weekend Box Office: Toy Story 5 Secures Biggest Opening of the Year
+        </a>
+      </h4>
+      <p class="summary">At $171 million, it was also the biggest opening of the franchise and the second best of all time for an animated film.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">评价</span>
+        <span class="source-tag">烂番茄</span>
+        <span class="quality-badge">10分</span>
+        烂番茄
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://editorial.rottentomatoes.com/guide/best-lgbt-movies-of-all-time/" target="_blank">
+          The Best LGBTQ+ Movies of All Time
+        </a>
+      </h4>
+      <p class="summary">We celebrate the lesbian, trans, queer, and gay movies that broke serious ground, opened hearts, and pushed cinema forward.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">评价</span>
+        <span class="source-tag">烂番茄</span>
+        <span class="quality-badge">10分</span>
+        烂番茄
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://editorial.rottentomatoes.com/guide/all-a24-movies-ranked/" target="_blank">
+          All A24 Movies Ranked by Tomatometer
+        </a>
+      </h4>
+      <p class="summary">From 'Everything Everywhere All at Once' and 'Moonlight' to 'The Witch' and 'Hereditary', it's all the popular indie studio's films ranked!</p>
+      <p class="meta">
+        <span class="sub-topic-tag">评价</span>
+        <span class="source-tag">烂番茄</span>
+        <span class="quality-badge">10分</span>
+        烂番茄
+      </p>
+    </div>
+    
+    
+  </div>
+  
+</div>
+
+<!-- ═══ 天气简报 ═══ -->
+
+<div class="weather-ribbon">
+  
+  <span class="weather-item">Beijing 当前 ☀️ 晴  22.5°C · 风速 6.1 km/h</span>
+  
+</div>
+
+
+<!-- ═══ 页脚 ═══ -->
+<footer class="footer">
+  TheDailyMe © 2026 · 由 Python + Jinja2 生成 · 数据来源见各条目链接
+</footer>
+
+<!-- ═══ AI 二级详情弹窗 ═══ -->
+
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+  <div class="detail-panel" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeDetail()" title="关闭">&times;</button>
+
+    <div class="detail-category">
+      <span id="detailCategory"></span>
+      <span class="score" id="detailScore"></span>
+    </div>
+
+    <h2 id="detailTitle"></h2>
+
+    <div class="detail-meta">
+      <span id="detailSource"></span>
+      <span id="detailReason"></span>
+    </div>
+
+    <div class="detail-body" id="detailBody"></div>
+
+    <div class="detail-source">
+      <span class="source-label"><i class="icon icon-paperclip"></i> 信息来源</span>
+      <a class="source-btn" id="detailSourceUrl" href="#" target="_blank" rel="noopener">
+        查看原文 &rarr;
+      </a>
+    </div>
+
+    <div class="detail-nav">
+      <button id="detailPrev" onclick="navigateDetail(-1)">&larr; 上一条</button>
+      <button id="detailNext" onclick="navigateDetail(1)">下一条 &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var _aiHeadlines = [{"ai_title": "波恩气候谈判陷僵局，全球减排进程再受阻", "ai_summary": "为期两周的联合国波恩气候谈判于6月19日结束，但各方在关键议题上分歧巨大，未能取得实质性进展。此次“僵局”为年底的COP30大会蒙上阴影，也凸显了全球气候治理的深层困境。", "ai_detail": "2026年6月，在德国波恩举行的联合国气候变化中期谈判在一片紧张气氛中落幕。根据Carbon Brief等多家权威机构的报道，本次会议并未在减缓、适应及气候资金等核心议题上达成有意义的共识，被与会代表和观察员形容为“僵局”和“令人失望”。\n\n**背景分析**：波恩会议是每年联合国气候大会（COP）前的重要中期会议，旨在为年底的正式大会（今年在巴西贝伦举行）铺路。然而，主要排放国之间在减排责任、对发展中国家的资金支持以及化石燃料退出时间表等问题上的立场依然尖锐对立。发达国家与发展中国家之间的“信任赤字”进一步加深。\n\n**影响分析**：此次谈判的失败直接威胁到《巴黎协定》目标的实现。全球平均气温已较工业化前升高约1.3°C，距离1.5°C的临界点越来越近。年底的COP30大会将面临前所未有的压力，必须就全球盘点后的行动方案达成共识。如果各方无法弥合分歧，全球气候治理可能陷入更深的危机，极端天气事件的频率和强度也将进一步加剧。\n\n**看点**：接下来几个月，各方将进行密集的磋商。中国、美国、欧盟等主要经济体的态度将是关键变量。同时，民间社会和企业界的压力也在持续增大，要求各国政府拿出更具雄心的气候行动。", "importance_score": 9, "importance_reason": "气候问题是全球性长期挑战，谈判僵局直接影响未来数年的减排政策和人类生存环境，具有极高新闻价值和深远影响。", "source": "Carbon Brief", "category": "climate", "url": "https://www.carbonbrief.org/bonn-climate-talks-key-outcomes-from-the-june-2026-un-climate-conference/", "original_title": "Bonn climate talks: Key outcomes from the June 2026 UN climate conference", "original_summary": "Two weeks of tense UN climate talks in Bonn, Germany, have produced few tangible outcomes...The postBonn climate talks: Key outcomes from the June 2026 UN climate conferenceappeared first onCarbon Bri"}, {"ai_title": "碳移除技术需大规模推广，才能重回1.5℃目标", "ai_summary": "超过260名专家在米兰研讨会上指出，仅靠减排已不足以控制全球变暖，必须大规模部署碳捕获与封存等碳移除技术，才能有机会将升温控制在1.5℃以内。这标志着气候行动思路的重大转变。", "ai_detail": "随着波恩气候谈判陷入僵局，另一条气候行动路径——碳移除技术——正受到越来越多的关注。6月中旬，来自全球的260多位顶尖科学家、政策制定者和企业家齐聚意大利米兰，共同探讨碳移除（CDR）的现状与未来。\n\n**背景分析**：碳移除技术包括直接空气捕获（DAC）、生物质能碳捕获与封存（BECCS）、增强风化以及植树造林等。尽管减排仍是首要任务，但专家们普遍认为，人类已无法仅通过减排就实现《巴黎协定》的1.5°C温控目标。国际能源署（IEA）和联合国政府间气候变化专门委员会（IPCC）的多数模型都显示，要实现净零排放，必须部署大规模的碳移除技术来抵消难以完全消除的剩余排放。\n\n**影响分析**：此次米兰会议达成的共识表明，碳移除正从学术概念向现实工程迈进。然而，挑战巨大：当前全球碳移除能力仅为每年约20亿吨，而专家估计到2050年需要达到每年100亿吨。成本、能效、土地占用以及长期封存的安全性都是亟待解决的问题。此外，对碳移除的过度依赖也可能削弱各国立即减排的政治意愿。\n\n**看点**：关注各国政府是否会出台更明确的政策激励碳移除产业发展，例如碳税、碳信用额度以及政府补贴。同时，初创公司和科技巨头在这一领域的投入和突破也将是市场关注的焦点。", "importance_score": 8, "importance_reason": "揭示了应对气候变化的另一关键路径，对科技、能源和政策领域均有重大指导意义，知识性强。", "source": "Carbon Brief", "category": "climate", "url": "https://www.carbonbrief.org/debriefed-19-june-2026-bonn-talks-end-in-gridlock-energys-new-era-oceans-in-climate-negotiations/", "original_title": "DeBriefed 19 June 2026: Bonn talks end in ‘gridlock’ | Energy’s ‘new era’ | Oceans in climate negotiations", "original_summary": "Welcome to Carbon Brief’s DeBriefed. An essential guide to the week’s key developments relating to climate...The postDeBriefed 19 June 2026: Bonn talks end in ‘gridlock’ | Energy’s ‘new era’ | Oceans "}, {"ai_title": "《玩具总动员5》北美开画狂揽1.71亿美元，创年度最佳", "ai_summary": "皮克斯动画《玩具总动员5》上周末在北美上映，以1.71亿美元的成绩刷新了该系列的开画纪录，也成为今年迄今北美票房最高的开画影片，证明了经典IP的强大号召力。", "ai_detail": "在刚刚过去的周末，全球影迷再次见证了经典IP的威力。《玩具总动员5》在北美地区以惊人的1.71亿美元票房强势开画，不仅轻松夺得周末票房冠军，更创下了多项纪录。\n\n**背景分析**：这是《玩具总动员》系列时隔近七年后的最新作品，也是该系列首次在夏季档上映。此前，该系列的最高开画纪录由2019年的《玩具总动员4》保持（约1.2亿美元）。《玩具5》的开画成绩不仅大幅超越前作，也超过了今年所有已上映影片的首周末成绩，包括《死侍与金刚狼》（假设其为今年上映的超级大片）等。在动画电影史上，这一成绩也仅次于《超人总动员2》的1.82亿美元。\n\n**影响分析**：这一现象级表现对好莱坞和全球电影市场释放了积极信号。在流媒体冲击和观众观影习惯改变的背景下，超级IP+高口碑的合家欢电影依然是吸引观众走进影院的“硬通货”。对于迪士尼和皮克斯而言，这无疑是一剂强心针，证明其核心动画资产的价值。同时，这也可能引发新一轮的经典动画续集潮。\n\n**看点**：该片能否在后续周末保持强劲势头，最终全球票房能否突破《头脑特工队2》的纪录？此外，中国内地市场将于何时上映，票房表现如何，也备受关注。", "importance_score": 8, "importance_reason": "文化娱乐领域的重大事件，反映了全球电影市场动态和消费趋势，对行业有重要参考价值，话题热度极高。", "source": "烂番茄", "category": "movies", "url": "https://editorial.rottentomatoes.com/article/weekend-box-office-toy-story-5/", "original_title": "Weekend Box Office: Toy Story 5 Secures Biggest Opening of the Year", "original_summary": "At $171 million, it was also the biggest opening of the franchise and the second best of all time for an animated film."}, {"ai_title": "重磅交易！NHL球星布雷迪·特卡丘克加盟佛罗里达美洲豹", "ai_summary": "据ESPN报道，渥太华参议员队队长布雷迪·特卡丘克被交易至佛罗里达美洲豹队，与弟弟马修·特卡丘克成为队友。这笔涉及多个选秀权的重磅交易震动了整个冰球界。", "ai_detail": "北美冰球联盟（NHL）在休赛期迎来了一颗重磅炸弹。根据ESPN资深记者报道，渥太华参议员队已同意将球队队长、全明星前锋布雷迪·特卡丘克交易至佛罗里达美洲豹队。\n\n**背景分析**：布雷迪·特卡丘克是联盟中最具侵略性和影响力的前锋之一，自2018年进入联盟以来一直效力于参议员队，并在2021年被任命为队长。他的弟弟马修·特卡丘克同样是联盟顶级前锋，目前效力于佛罗里达美洲豹队。兄弟俩在场上以强悍的球风和不俗的得分能力著称。这笔交易的达成，意味着两兄弟将首次在NHL成为队友。\n\n**影响分析**：对于佛罗里达美洲豹队而言，这笔交易堪称“豪赌”。他们送出了多个高顺位选秀权作为代价，但换来了联盟顶级的锋线组合。布雷迪和马修两兄弟的联手，将极大提升美洲豹队的进攻火力和身体对抗强度，使他们瞬间成为下赛季斯坦利杯的有力争夺者。对于渥太华参议员队，这标志着球队重建进入新阶段，他们将利用获得的选秀权储备未来资产。\n\n**看点**：这笔交易的最终细节，包括具体的选秀权补偿，以及特卡丘克兄弟能否在新赛季产生完美的化学反应，将是整个NHL下赛季最大的看点之一。", "importance_score": 7, "importance_reason": "体育领域的重大转会新闻，对NHL联盟格局和球迷群体影响巨大，时效性强，话题度高。", "source": "ESPN", "category": "sports", "url": "https://www.espn.com/nhl/story/_/id/49138139/panthers-acquire-brady-tkachuk-senators-sources-say", "original_title": "Sources: B. Tkachuk to Panthers, joins brother", "original_summary": "Brady Tkachuk, captain of the Ottawa Senators, was dealt to the Florida Panthers, sources said Sunday, for a host of draft picks, allowing the wing to join his brother, Matthew, on a two-time Stanley "}, {"ai_title": "SZA等歌手联名抗议：AI训练数据不应滥用原创音乐", "ai_summary": "包括格莱美奖得主SZA在内的多位知名音乐人公开谴责在AI训练数据集中未经授权使用他们的歌曲。他们表示，这种行为正在“抹杀艺术家的作品和梦想”，并呼吁制定更严格的版权法规。", "ai_detail": "人工智能生成内容的浪潮正在席卷创意产业，但也引发了前所未有的版权争议。近日，美国歌手SZA、制作人Kenneth Blume等多位音乐界人士联合发声，强烈谴责部分科技公司在训练AI模型时，未经许可使用他们受版权保护的歌曲。\n\n**背景分析**：随着AI音乐生成工具的快速发展，如Suno、Udio等，用户可以仅通过文字描述就生成风格各异的音乐。然而，这些模型背后依赖的训练数据，往往包含大量未经授权的商业音乐作品。这导致AI生成的音乐在旋律、和声甚至歌手音色上，都与原作品高度相似，涉嫌侵权。\n\n**影响分析**：SZA等人的抗议代表了整个音乐行业对AI技术滥用核心担忧。如果放任不管，AI可能会严重侵蚀原创音乐人的创作动力和经济收益。此前，美国唱片业协会（RIAA）已对多家AI音乐公司提起诉讼。此次多位一线艺人的公开介入，将极大增加社会舆论对AI版权问题的关注，可能加速推动相关法律法规的出台。\n\n**看点**：关注美国国会是否会就此召开听证会，以及科技公司与音乐版权方之间能否达成类似新闻出版业的“授权-付费”协议。这场博弈的结果，将深刻影响AI生成内容的未来走向。", "importance_score": 7, "importance_reason": "触及AI时代核心的版权与伦理问题，对科技、法律和创意产业均有深远影响，实用性强。", "source": "Pitchfork", "category": "music", "url": "https://pitchfork.com/news/sza-kenneth-blume-decry-use-of-their-songs-in-ai-training-data-sets/", "original_title": "SZA, Kenneth Blume Decry Use of Their Songs in AI Training Data Sets", "original_summary": "“I can’t imagine being proud to earn a paycheck obliterating the work and dreams of artists”"}];
+var _currentIdx = 0;
+
+var CAT_LABELS = {
+  "tech": "科技",
+  "climate": "气候",
+  "gaming": "游戏",
+  "sports": "体育",
+  "movies": "影视",
+  "music": "音乐"
+};
+
+function openDetail(idx) {
+  if (idx < 0 || idx >= _aiHeadlines.length) return;
+  _currentIdx = idx;
+  var h = _aiHeadlines[idx];
+
+  document.getElementById('detailCategory').textContent = (CAT_LABELS[h.category] || h.category);
+  document.getElementById('detailScore').textContent = '重要性: ' + h.importance_score + '/10';
+  document.getElementById('detailTitle').textContent = h.ai_title;
+  document.getElementById('detailSource').textContent = '来源: ' + h.source;
+  document.getElementById('detailReason').textContent = h.importance_reason || '';
+  document.getElementById('detailBody').innerHTML = '<p>' + h.ai_detail.replace(/\n/g, '</p><p>') + '</p>';
+  document.getElementById('detailSourceUrl').href = h.url || '#';
+
+  document.getElementById('detailPrev').style.visibility = idx > 0 ? 'visible' : 'hidden';
+  document.getElementById('detailNext').style.visibility = idx < _aiHeadlines.length - 1 ? 'visible' : 'hidden';
+
+  document.getElementById('detailOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail(e) {
+  if (e && e.target !== document.getElementById('detailOverlay')) return;
+  document.getElementById('detailOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navigateDetail(dir) {
+  openDetail(_currentIdx + dir);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('detailOverlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closeDetail();
+  if (e.key === 'ArrowLeft') navigateDetail(-1);
+  if (e.key === 'ArrowRight') navigateDetail(1);
+});
+</script>
+
+
+</body>
+</html>
