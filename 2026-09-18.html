@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheDailyMe — 2026年09月18日</title>
+<style>
+/* ── 内联样式（所有 CSS 在此，自包含单文件） ── */
+/* TheDailyMe — 报纸头版样式 */
+/* 经典 broadsheet 风格：衬线体 + 多栏 + 分割线 */
+
+:root {
+  --bg: #fdfaf3;
+  --text: #1a1a1a;
+  --muted: #666;
+  --border: #1a1a1a;
+  --accent: #8b0000;
+  --tag-bg: #f0ebe0;
+  --rule: #1a1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a16;
+    --text: #e8e4d8;
+    --muted: #999;
+    --border: #555;
+    --accent: #c44;
+    --tag-bg: #2a2a24;
+    --rule: #555;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Serif SC", "Noto Serif", "Georgia", "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  line-height: 1.7;
+}
+
+/* ── 报头 ────────────────────────────────────── */
+
+.masthead {
+  text-align: center;
+  border-bottom: 3px double var(--rule);
+  padding-bottom: 20px;
+  margin-bottom: 16px;
+}
+
+.masthead h1 {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.masthead .subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.dateline {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 6px 0;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.dateline span {
+  margin: 0 12px;
+}
+
+/* ── 头条区 ──────────────────────────────────── */
+
+.headline-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 24px;
+}
+
+.headline-main h2 {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.headline-main h2 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.headline-main h2 a:hover {
+  color: var(--accent);
+}
+
+.headline-main .summary {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.headline-main .meta {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.headline-side {
+  border-left: 1px solid var(--rule);
+  padding-left: 20px;
+}
+
+.headline-side h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.headline-side .side-item {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px dotted var(--border);
+}
+
+.headline-side .side-item:last-child {
+  border-bottom: none;
+}
+
+.headline-side .side-item h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.headline-side .side-item h4 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.headline-side .side-item h4 a:hover {
+  color: var(--accent);
+}
+
+.headline-side .side-item .side-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ── 三栏分类区 ──────────────────────────────── */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 24px;
+}
+
+.category-col h3 {
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.category-col .article-item {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dotted var(--border);
+}
+
+.category-col .article-item:last-child {
+  border-bottom: none;
+}
+
+.category-col .article-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
+
+.category-col .article-item h4 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.category-col .article-item h4 a:hover {
+  color: var(--accent);
+}
+
+.category-col .article-item .summary {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+
+.category-col .article-item .meta {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.category-col .article-item .source-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--tag-bg);
+  padding: 1px 6px;
+  margin-right: 6px;
+}
+
+/* ── 底部天气条 ──────────────────────────────── */
+
+.weather-ribbon {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  margin-top: 16px;
+}
+
+.weather-ribbon .weather-item {
+  display: inline-block;
+  margin: 0 16px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+/* ── 响应式 ──────────────────────────────────── */
+
+@media (max-width: 768px) {
+  body { padding: 20px 16px; }
+  .masthead h1 { font-size: 32px; }
+  .headline-section { grid-template-columns: 1fr; }
+  .headline-side { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 16px; }
+  .category-grid { grid-template-columns: 1fr; }
+  .headline-main h2 { font-size: 24px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   TheDailyMe — AI 增强组件样式
+   所有样式使用 CSS 变量，与各主题无缝融合
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── CSS 变量（主题可覆盖） ────────────────── */
+:root {
+  --ai-accent: var(--accent, #8b0000);
+  --ai-accent-text: #fff;
+  --ai-bg: var(--tag-bg, #f4f0eb);
+  --ai-bg-hover: color-mix(in srgb, var(--ai-bg) 85%, var(--ai-accent));
+  --ai-glow: 0 0 0 transparent;
+  --ai-radius: 6px;
+}
+
+/* ── 今日必读卡片 ─────────────────────────── */
+.daily-briefing {
+  background: var(--ai-bg);
+  border-left: 4px solid var(--ai-accent);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  border-radius: 0 var(--ai-radius) var(--ai-radius) 0;
+  line-height: 1.7;
+}
+
+.briefing-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-badge {
+  display: inline-block;
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.briefing-text {
+  font-size: 15px;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ── AI 头条高亮 ──────────────────────────── */
+.ai-highlight {
+  position: relative;
+}
+
+.ai-headline-trigger {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.ai-headline-trigger:hover {
+  background: var(--ai-bg);
+  border-radius: var(--ai-radius);
+}
+
+.ai-reason {
+  color: var(--ai-accent);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.ai-mode-badge {
+  color: var(--ai-accent);
+  text-shadow: 0 0 6px var(--ai-glow, transparent);
+  font-weight: 700;
+}
+
+.ai-score {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-left: 8px;
+  vertical-align: middle;
+  letter-spacing: 0.5px;
+}
+
+/* ── 子主题标签 ───────────────────────────── */
+.sub-topic-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  background: var(--ai-bg);
+  color: var(--ai-accent);
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-right: 6px;
+  letter-spacing: 0.5px;
+  border: 1px solid color-mix(in srgb, var(--ai-accent) 30%, transparent);
+}
+
+/* ── 质量评分徽章 ─────────────────────────── */
+.quality-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ai-accent);
+  margin-left: 6px;
+  padding: 0 5px;
+  border: 1px solid color-mix(in srgb, var(--ai-accent) 40%, transparent);
+  border-radius: 3px;
+}
+
+/* ── AI 详情弹窗 ──────────────────────────── */
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 20px;
+  overflow-y: auto;
+}
+.detail-overlay.active {
+  display: flex;
+}
+
+.detail-panel {
+  background: var(--bg);
+  color: var(--text);
+  width: 100%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 36px 40px;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+  animation: detailIn 0.2s ease;
+  border: 1px solid var(--border);
+}
+@keyframes detailIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
+}
+.close-btn:hover {
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  border-color: var(--ai-accent);
+}
+
+.detail-category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.detail-category .score {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+#detailTitle {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+
+.detail-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.detail-meta span {
+  font-weight: 500;
+}
+
+.detail-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.detail-body p {
+  margin-bottom: 12px;
+}
+.detail-body p:last-child {
+  margin-bottom: 0;
+}
+
+.detail-source {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.detail-source .source-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.source-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: var(--ai-accent);
+  color: var(--ai-accent-text);
+  border-radius: var(--ai-radius);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.source-btn:hover {
+  opacity: 0.85;
+}
+
+.detail-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.detail-nav button {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--ai-radius);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.detail-nav button:hover {
+  background: var(--ai-bg);
+  border-color: var(--ai-accent);
+}
+.detail-nav button:first-child {
+  visibility: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Math Curve Loader — Spiral Search (Archimedean Spiral)
+   来源: github.com/Paidax01/math-curve-loaders
+   ═══════════════════════════════════════════════════════════ */
+
+.spiral-loader {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  display: block;
+  animation: spiral-breathe 6.8s ease-in-out infinite;
+}
+
+.spiral-trail {
+  stroke: var(--ai-accent, var(--accent, #333));
+  animation: spiral-search 7.8s ease-in-out infinite;
+}
+
+.spiral-path {
+  stroke: var(--ai-accent, var(--accent, #333));
+  stroke-width: 0.8;
+  opacity: 0.12;
+}
+
+@keyframes spiral-search {
+  0%   { stroke-dashoffset: 0; opacity: 0.15; }
+  20%  { opacity: 0.85; }
+  50%  { stroke-dashoffset: -1800; opacity: 0.9; }
+  80%  { opacity: 0.85; }
+  100% { stroke-dashoffset: -3600; opacity: 0.15; }
+}
+
+@keyframes spiral-breathe {
+  0%, 100% { transform: scale(0.96); opacity: 0.7; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+
+/* ── 响应式 ────────────────────────────────── */
+@media (max-width: 768px) {
+  .detail-panel {
+    padding: 24px 20px;
+    max-height: 90vh;
+  }
+  #detailTitle {
+    font-size: 20px;
+  }
+  .daily-briefing {
+    padding: 14px 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Icon System — Lucide SVG 图标（mask-image 方式）
+   用法：<i class="icon icon-newspaper"></i>
+   颜色继承 currentColor，尺寸默认 1em × 1em
+   ═══════════════════════════════════════════════════════════ */
+
+.icon {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: -0.2em;
+  background: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* ── 通用 / UI 类 ─────────────────────────── */
+.icon-newspaper  { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2'/%3E%3Cpath d='M18 14h-8'/%3E%3Cpath d='M15 18h-5'/%3E%3Cpath d='M10 6h8v4h-8z'/%3E%3C/svg%3E"); }
+.icon-settings   { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E"); }
+.icon-archive    { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='5' x='2' y='3' rx='1'/%3E%3Cpath d='M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8'/%3E%3Cpath d='M10 12h4'/%3E%3C/svg%3E"); }
+.icon-user       { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E"); }
+.icon-palette    { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='13.5' cy='6.5' r='1.5'/%3E%3Ccircle cx='17.5' cy='10.5' r='1.5'/%3E%3Ccircle cx='8.5' cy='7.5' r='1.5'/%3E%3Ccircle cx='6.5' cy='12.5' r='1.5'/%3E%3Cpath d='M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.5-4.5-10-10-10z'/%3E%3C/svg%3E"); }
+.icon-zap        { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/%3E%3C/svg%3E"); }
+.icon-refresh    { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'/%3E%3Cpath d='M3 3v5h5'/%3E%3Cpath d='M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16'/%3E%3Cpath d='M16 16h5v5'/%3E%3C/svg%3E"); }
+.icon-save       { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z'/%3E%3Cpolyline points='17 21 17 13 7 13 7 21'/%3E%3Cpolyline points='7 3 7 8 15 8'/%3E%3C/svg%3E"); }
+.icon-bot        { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='10' x='3' y='11' rx='2'/%3E%3Ccircle cx='12' cy='5' r='2'/%3E%3Cpath d='M12 7v4'/%3E%3Cline x1='8' x2='8' y1='16' y2='16'/%3E%3Cline x1='16' x2='16' y1='16' y2='16'/%3E%3C/svg%3E"); }
+.icon-paperclip  { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48'/%3E%3C/svg%3E"); }
+
+/* ── 类别图标 ──────────────────────────────── */
+.icon-flask      { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 3h6'/%3E%3Cpath d='M10 3v8.17a3 3 0 0 1-.78 2.1L4.58 18.6A2 2 0 0 0 6 22h12a2 2 0 0 0 1.42-3.4l-4.64-5.33A3 3 0 0 1 14 11.17V3h-4z'/%3E%3Ccircle cx='12' cy='19' r='1.5'/%3E%3C/svg%3E"); }
+.icon-sun        { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2'/%3E%3Cpath d='M12 20v2'/%3E%3Cpath d='m4.93 4.93 1.41 1.41'/%3E%3Cpath d='m17.66 17.66 1.41 1.41'/%3E%3Cpath d='M2 12h2'/%3E%3Cpath d='M20 12h2'/%3E%3Cpath d='m6.34 17.66-1.41 1.41'/%3E%3Cpath d='m19.07 4.93-1.41 1.41'/%3E%3C/svg%3E"); }
+.icon-gamepad    { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='6' x2='10' y1='12' y2='12'/%3E%3Cline x1='8' x2='8' y1='10' y2='14'/%3E%3Cline x1='15' x2='15.01' y1='13' y2='13'/%3E%3Cline x1='18' x2='18.01' y1='11' y2='11'/%3E%3Crect width='20' height='12' x='2' y='6' rx='2'/%3E%3C/svg%3E"); }
+.icon-trophy     { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6'/%3E%3Cpath d='M18 9h1.5a2.5 2.5 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M12 16V7a3 3 0 0 0-6 0v9'/%3E%3Cpath d='M18 16v-3a3 3 0 0 0-6 0v3'/%3E%3C/svg%3E"); }
+.icon-film       { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='3' rx='2'/%3E%3Cpath d='M7 3v18'/%3E%3Cpath d='M3 7.5h4'/%3E%3Cpath d='M3 12h18'/%3E%3Cpath d='M3 16.5h4'/%3E%3Cpath d='M17 3v18'/%3E%3Cpath d='M17 7.5h4'/%3E%3Cpath d='M17 16.5h4'/%3E%3C/svg%3E"); }
+.icon-music      { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Ccircle cx='18' cy='16' r='3'/%3E%3C/svg%3E"); }
+.icon-search     { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E"); }
+.icon-check      { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); }
+.icon-alert      { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z'/%3E%3Cline x1='12' x2='12' y1='9' y2='13'/%3E%3Cline x1='12' x2='12.01' y1='17' y2='17'/%3E%3C/svg%3E"); }
+.icon-tag        { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2H2v10l9.3 9.3a2.4 2.4 0 0 0 3.4 0L21.3 15a2.4 2.4 0 0 0 0-3.4Z'/%3E%3Ccircle cx='7' cy='7' r='1.5'/%3E%3C/svg%3E"); }
+
+/* ═══════════════════════════════════════════════════════════
+   UI 控件美化 — 按钮 / 输入框 / 滑块 / 下拉框 / Toggle
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 按钮增强 ─────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+}
+.btn-primary {
+  background: var(--accent-bg, #1a1a1a);
+  color: var(--accent-text, #fff);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+/* ── 输入框增强 ───────────────────────────── */
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 9px 13px;
+  border: 1.5px solid var(--border, #ddd);
+  border-radius: 7px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text, #111);
+  background: var(--bg, #fff);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--accent, #333);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #333) 15%, transparent);
+}
+input[type="text"]::placeholder {
+  color: var(--muted, #999);
+  opacity: 0.6;
+}
+
+/* ── 下拉框美化 ───────────────────────────── */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* ── Range 滑块美化 ───────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--border, #ddd);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-bg, #333);
+  border: 2px solid var(--bg, #fff);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-bg, #333);
+  border: 2px solid var(--bg, #fff);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* ── Toggle 开关增强 ──────────────────────── */
+.toggle-switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+}
+.toggle-switch .slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border, #ccc);
+  border-radius: 26px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.toggle-switch .slider::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-switch input:checked + .slider {
+  background: var(--accent-bg, #333);
+}
+.toggle-switch input:checked + .slider::after {
+  transform: translateX(20px);
+}
+
+/* ── 卡片/分组增强 ────────────────────────── */
+.settings-section {
+  background: var(--surface, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.settings-section h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--muted);
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.form-group {
+  margin-bottom: 18px;
+}
+.form-group:last-child {
+  margin-bottom: 0;
+}
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  color: var(--text);
+}
+.form-group .hint {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 3px;
+}
+
+/* ── Toast 增强 ───────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  animation: toastIn 0.3s ease;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toast.success {
+  background: #16a34a;
+  color: #fff;
+}
+.toast.error {
+  background: #dc2626;
+  color: #fff;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- ═══ 报头 ═══ -->
+<header class="masthead">
+  <h1>The Daily Me</h1>
+  <p class="subtitle">同学的个人日报</p>
+</header>
+
+<div class="dateline">
+  <span>2026年09月18日</span>
+  <span>|</span>
+  <span>VOL. 261</span>
+  <span>|</span>
+  <span>今日30条</span>
+  <span>|</span><span><i class="icon icon-bot"></i> AI 增强版</span>
+</div>
+
+<!-- ═══ AI 今日必读 ═══ -->
+
+<div class="daily-briefing">
+  <div class="briefing-label">
+    今日必读 <span class="ai-badge">AI 生成</span>
+  </div>
+  <p class="briefing-text">今日必读：技术领域迎来多项重要开源进展。Bend语言尝试用数学证明从根源上堵住AI编程错误，并实现CPU与GPU通吃，为AI辅助开发提供了新的可靠性思路。Cloudflare开源安全审计AI技能，支持多阶段扫描与机器可读的独立验证，有望提升漏洞发现的自动化水平。阿里巴巴则开源了代码审查工具，采用确定性流水线与LLM Agent混合架构，上线后日增超三千星，显示出开发者对智能代码审查的强烈需求。气候方面，Carbon Brief分析指出，受霍尔木兹危机冲击，2026年全球化石燃料排放预计下降0.5%；与此同时，印度电力部门排放连续两年零增长，清洁能源激增成为关键驱动力，为全球减排前景增添了一抹亮色。</p>
+</div>
+
+
+<!-- ═══ 头条区 ═══ -->
+
+<div class="headline-section">
+  <div class="headline-main ai-highlight">
+    <h2 class="ai-headline-trigger"
+        onclick="openDetail(0)" title="点击查看 AI 深度解读">
+      Bend语言横空出世：用数学证明堵住AI编程错误，CPU/GPU通吃
+      <span class="ai-score">9/10</span>
+    </h2>
+    <p class="summary">Hacker News热帖介绍了一门名为Bend的新编程语言，它通过形式化证明机制从语言层面阻止AI生成代码中的逻辑错误，同时支持CPU和GPU并行执行。该语言试图解决AI辅助编程时代最棘手的问题——代码正确性无法保证。帖子获得224分和121条评论，开发者社区讨论热烈。</p>
+    <p class="meta">
+      <span class="source-tag">Hacker News</span>
+      AI 精选 · 重要性: 9/10
+      
+      <br><small class="ai-reason">直击AI编程时代最核心的信任问题，技术创新性强，社区讨论热度高，可能影响未来编程语言设计方向。</small>
+      
+    </p>
+  </div>
+  <div class="headline-side">
+    <h3><i class="icon icon-newspaper"></i> 其他重点</h3>
+    
+    <div class="side-item ai-headline-trigger"
+         onclick="openDetail(1)" title="点击查看 AI 深度解读">
+      <h4>
+        Cloudflare开源安全审计AI技能：多阶段扫描，机器可读的独立验证发现
+        
+        <span class="ai-score">9/10</span>
+        
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">GitHub Trending</span>
+        AI 精选 · 重要性: 9/10
+      </p>
+    </div>
+    
+    <div class="side-item ai-headline-trigger"
+         onclick="openDetail(2)" title="点击查看 AI 深度解读">
+      <h4>
+        阿里巴巴开源代码审查工具：确定性流水线+LLM Agent混合架构，日增3286星
+        
+        <span class="ai-score">8/10</span>
+        
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">GitHub Trending</span>
+        AI 精选 · 重要性: 8/10
+      </p>
+    </div>
+    
+    <div class="side-item ai-headline-trigger"
+         onclick="openDetail(3)" title="点击查看 AI 深度解读">
+      <h4>
+        Carbon Brief分析：霍尔木兹危机冲击下，2026年全球化石燃料排放预计下降0.5%
+        
+        <span class="ai-score">8/10</span>
+        
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">Carbon Brief</span>
+        AI 精选 · 重要性: 8/10
+      </p>
+    </div>
+    
+    <div class="side-item ai-headline-trigger"
+         onclick="openDetail(4)" title="点击查看 AI 深度解读">
+      <h4>
+        印度电力部门排放连续两年零增长：清洁能源激增成关键驱动力
+        
+        <span class="ai-score">8/10</span>
+        
+      </h4>
+      <p class="side-meta">
+        <span class="source-tag">Carbon Brief</span>
+        AI 精选 · 重要性: 8/10
+      </p>
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- ═══ 三栏分类 ═══ -->
+<div class="category-grid">
+  
+  <div class="category-col">
+    <h3>科技</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://openai.com/index/astra-for-law/" target="_blank">
+          Astra for Law
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">Hacker News</span>
+        <span class="quality-badge">10分</span>
+        243 points · 272 comments
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://prismml.com/news/bonsai-2-27b" target="_blank">
+          Bonsai 2 27B: Near-Lossless Compression in a 9x Smaller Footprint
+        </a>
+      </h4>
+      
+      <p class="meta">
+        <span class="sub-topic-tag">AI</span>
+        <span class="source-tag">Hacker News</span>
+        <span class="quality-badge">10分</span>
+        143 points · 46 comments
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://bend-lang.com/" target="_blank">
+          Bend – A language that blocks AI mistakes via proof, on CPU and GPU
+        </a>
+      </h4>
+      
+      <p class="meta">
+        <span class="sub-topic-tag">AI</span>
+        <span class="source-tag">Hacker News</span>
+        <span class="quality-badge">10分</span>
+        224 points · 121 comments
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://github.com/alibaba/open-code-review" target="_blank">
+          alibaba / open-code-review
+        </a>
+      </h4>
+      <p class="summary">Fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">AI</span>
+        <span class="source-tag">GitHub Trending</span>
+        <span class="quality-badge">10分</span>
+        Go · 3,286 stars today · 3,286 stars today
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://github.com/cloudflare/security-audit-skill" target="_blank">
+          cloudflare / security-audit-skill
+        </a>
+      </h4>
+      <p class="summary">A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings</p>
+      <p class="meta">
+        <span class="sub-topic-tag">编程</span>
+        <span class="source-tag">GitHub Trending</span>
+        <span class="quality-badge">10分</span>
+        JavaScript · 3,607 stars today · 3,607 stars today
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://github.com/addyosmani/agent-skills" target="_blank">
+          addyosmani / agent-skills
+        </a>
+      </h4>
+      <p class="summary">Production-grade engineering skills for AI coding agents.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">编程</span>
+        <span class="source-tag">GitHub Trending</span>
+        <span class="quality-badge">10分</span>
+        JavaScript · 680 stars today · 680 stars today
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.v2ex.com/t/1242830#reply0" target="_blank">
+          同一个账号，用不同的卡充值，会有问题吗？
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">V2EX</span>
+        <span class="quality-badge">7分</span>
+        
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.v2ex.com/t/1242825#reply3" target="_blank">
+          typeless 的每周额度降级到 2k 词,会员开不太起，有啥平替吗
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">V2EX</span>
+        <span class="quality-badge">8分</span>
+        3 replies
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.v2ex.com/t/1242702#reply27" target="_blank">
+          早知道，还得是 luna max
+        </a>
+      </h4>
+      
+      <p class="meta">
+        <span class="sub-topic-tag">互联网</span>
+        <span class="source-tag">V2EX</span>
+        <span class="quality-badge">9分</span>
+        27 replies
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>游戏</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://store.steampowered.com/news/276347/" target="_blank">
+          Team Fortress 2 Update Released
+        </a>
+      </h4>
+      <p class="summary">An update to Team Fortress 2 has been released. The update will be applied automatically when you restart Team Fortress 2. The major changes include:Updated Taxi Cabbed war paintFixed mip settings on </p>
+      <p class="meta">
+        <span class="sub-topic-tag">PC游戏</span>
+        <span class="source-tag">Steam 新闻</span>
+        <span class="quality-badge">10分</span>
+        Steam 新闻
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://store.steampowered.com/news/275791/" target="_blank">
+          Now Available on Steam - Angels Fall First, 10% off!
+        </a>
+      </h4>
+      <p class="summary">Angels Fall Firstis Now Available on Steam and is 10% off!*From commanding the battle standing on the bridge of your flagship all the way down to tactical infantry firefights - AFF brings together all</p>
+      <p class="meta">
+        <span class="sub-topic-tag">PC游戏</span>
+        <span class="source-tag">Steam 新闻</span>
+        <span class="quality-badge">10分</span>
+        Steam 新闻
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.gamersky.com/news/202609/2211761.shtml" target="_blank">
+          金刚狼目前最火的是个下三路梗！玩家社区炸锅
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">游民星空</span>
+        <span class="quality-badge">8分</span>
+        游民星空
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.gamersky.com/news/202609/2210896.shtml" target="_blank">
+          72岁赵雅芝绝美高定压轴亮相！神级保养几乎冻龄
+        </a>
+      </h4>
+      
+      <p class="meta">
+        
+        <span class="source-tag">游民星空</span>
+        <span class="quality-badge">8分</span>
+        游民星空
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.gamersky.com/news/202609/2211704.shtml" target="_blank">
+          《漫威金刚狼》12国配音无中文 索尼差这点钱？
+        </a>
+      </h4>
+      
+      <p class="meta">
+        <span class="sub-topic-tag">主机</span>
+        <span class="source-tag">游民星空</span>
+        <span class="quality-badge">9分</span>
+        游民星空
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>气候</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.carbonbrief.org/analysis-indias-power-sector-emissions-flat-for-two-years-due-to-clean-energy-surge" target="_blank">
+          Analysis: India’s power-sector emissions flat for two years due to clean-energy surge
+        </a>
+      </h4>
+      <p class="summary">A surge in clean energy has kept carbon dioxide (CO2) emissions in check across India’s power sector, with no growth…The postAnalysis: India’s power-sector emissions flat for two years due to clean-en</p>
+      <p class="meta">
+        
+        <span class="source-tag">Carbon Brief</span>
+        <span class="quality-badge">10分</span>
+        气候变化 · 深度报道
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.carbonbrief.org/analysis-global-fossil-fuel-emissions-set-to-fall-in-2026-amid-hormuz-crisis" target="_blank">
+          Analysis: Global fossil-fuel emissions set to fall in 2026 amid Hormuz crisis
+        </a>
+      </h4>
+      <p class="summary">Global fossil-fuel emissions are set to fall by around 0.5% in 2026 amid the fallout from the Hormuz crisis, according…The postAnalysis: Global fossil-fuel emissions set to fall in 2026 amid Hormuz cr</p>
+      <p class="meta">
+        
+        <span class="source-tag">Carbon Brief</span>
+        <span class="quality-badge">10分</span>
+        气候变化 · 深度报道
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.carbonbrief.org/ccc-heathrow-expansion-could-push-flights-to-80-of-uk-emissions-by-2050" target="_blank">
+          CCC: Heathrow expansion could push flights to ‘80% of UK emissions by 2050’
+        </a>
+      </h4>
+      <p class="summary">Aviation is on track to be responsible for 80% of the UK’s carbon dioxide (CO2) emissions by 2050, according to…The postCCC: Heathrow expansion could push flights to ‘80% of UK emissions by 2050’appea</p>
+      <p class="meta">
+        
+        <span class="source-tag">Carbon Brief</span>
+        <span class="quality-badge">10分</span>
+        气候变化 · 深度报道
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        
+          Beijing 当前 ☀️ 晴  21.9°C
+        
+      </h4>
+      <p class="summary">风速 6.5 km/h</p>
+      <p class="meta">
+        
+        <span class="source-tag">Open-Meteo 天气</span>
+        
+        实时 · Beijing
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        
+          今天 (2026-09-18)
+        
+      </h4>
+      <p class="summary">🌧 小毛毛雨 · 29.2°C / 21.4°C · 降水 0.9mm</p>
+      <p class="meta">
+        
+        <span class="source-tag">Open-Meteo 天气</span>
+        <span class="quality-badge">9分</span>
+        Beijing
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        
+          明天 (2026-09-19)
+        
+      </h4>
+      <p class="summary">☁️ 阴 · 28.9°C / 19.2°C</p>
+      <p class="meta">
+        
+        <span class="source-tag">Open-Meteo 天气</span>
+        <span class="quality-badge">9分</span>
+        Beijing
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        
+          后天 (2026-09-20)
+        
+      </h4>
+      <p class="summary">🌧 小毛毛雨 · 29.2°C / 21.8°C · 降水 0.2mm</p>
+      <p class="meta">
+        
+        <span class="source-tag">Open-Meteo 天气</span>
+        <span class="quality-badge">9分</span>
+        Beijing
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>音乐</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://pitchfork.com/story/gandalf-narrates-troye-sivans-new-party-video/" target="_blank">
+          Gandalf Narrates Troye Sivan’s New “Party” Video
+        </a>
+      </h4>
+      <p class="summary">The second single from She’s the Best prominently samples a timeless Madonna hit</p>
+      <p class="meta">
+        <span class="sub-topic-tag">独立/摇滚</span>
+        <span class="source-tag">Pitchfork</span>
+        <span class="quality-badge">10分</span>
+        Pitchfork
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://pitchfork.com/story/hamilton-leithauser-and-rostam-to-tour-i-had-a-dream-that-you-were-mine/" target="_blank">
+          Hamilton Leithauser and Rostam to Tour I Had a Dream That You Were Mine
+        </a>
+      </h4>
+      <p class="summary">Their first official run of dates together is a celebration of the duo’s 2016 album</p>
+      <p class="meta">
+        <span class="sub-topic-tag">独立/摇滚</span>
+        <span class="source-tag">Pitchfork</span>
+        <span class="quality-badge">10分</span>
+        Pitchfork
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://pitchfork.com/story/death-cab-for-cutie-plot-2027-tour/" target="_blank">
+          Death Cab for Cutie Plot 2027 Tour
+        </a>
+      </h4>
+      <p class="summary">A new video for “Stone Over Water” accompanies the announcement of North American dates</p>
+      <p class="meta">
+        <span class="sub-topic-tag">独立/摇滚</span>
+        <span class="source-tag">Pitchfork</span>
+        <span class="quality-badge">10分</span>
+        Pitchfork
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.billboard.com/music/pop/zara-larsson-blue-moon-midnight-sun-coachella-macklemore-1236343011/" target="_blank">
+          Zara Larsson on ‘Dream’ of Headlining Coachella, Why ‘Blue Moon’ Deserves More ‘Love’ & Her ‘Respect’ for Macklemore Speaking Out
+        </a>
+      </h4>
+      <p class="summary">"There's so much space to be held still for the wholeMidnight Sunalbum," the Swedish pop star tellsBillboard.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">榜单</span>
+        <span class="source-tag">Billboard</span>
+        <span class="quality-badge">10分</span>
+        Billboard
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.billboard.com/pro/erica-campbell-label-lawsuit-gospel-music-royalties/" target="_blank">
+          Erica Campbell’s Label Sues Distributor Over Gospel Music Royalties
+        </a>
+      </h4>
+      <p class="summary">SRG/ILS Group was previously hit with a similar lawsuit from R&B singer Kenny Lattimore.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">榜单</span>
+        <span class="source-tag">Billboard</span>
+        <span class="quality-badge">10分</span>
+        Billboard
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://www.billboard.com/video/zara-larsson-billboard-news-interview-blue-moon-macklemore/" target="_blank">
+          Zara Larsson Talks Macklemore Speaking Out, Her Workout Routine & Viral Concert Moments | Billboard News Interview
+        </a>
+      </h4>
+      <p class="summary">Zara Larsson addresses Macklemore speaking out and being an artist her fans can trust, shares what the secret to her workout routine is, fan moments at her concerts going viral on social media, how sh</p>
+      <p class="meta">
+        <span class="sub-topic-tag">榜单</span>
+        <span class="source-tag">Billboard</span>
+        <span class="quality-badge">10分</span>
+        Billboard
+      </p>
+    </div>
+    
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>体育</h3>
+    
+    
+    <p class="summary" style="font-style:italic">今日暂无内容，请稍后再试。</p>
+    
+  </div>
+  
+  <div class="category-col">
+    <h3>影视</h3>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://editorial.rottentomatoes.com/article/essential-mexican-movies-that-are-worth-watching/" target="_blank">
+          10 Essential Mexican Films That Are Worth Watching
+        </a>
+      </h4>
+      <p class="summary">Dig deeper into Mexican cinema with this sampler of overlooked and underseen films.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">评价</span>
+        <span class="source-tag">烂番茄</span>
+        <span class="quality-badge">10分</span>
+        烂番茄
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://editorial.rottentomatoes.com/article/what-to-watch-this-week/" target="_blank">
+          What to Watch This Week
+        </a>
+      </h4>
+      <p class="summary">The 5 movies, TV shows, and events everyone will be talking about, for the week of September 17 to September 23.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">评价</span>
+        <span class="source-tag">烂番茄</span>
+        <span class="quality-badge">10分</span>
+        烂番茄
+      </p>
+    </div>
+    
+    <div class="article-item">
+      <h4>
+        <a href="https://editorial.rottentomatoes.com/guide/fresh-movies-2026-ranked/" target="_blank">
+          Fresh Movies of 2026, Ranked by Tomatometer
+        </a>
+      </h4>
+      <p class="summary">Discover every Fresh movie of the year, including 'Mother Mary,' 'Masters of the Universe,' and more.</p>
+      <p class="meta">
+        <span class="sub-topic-tag">评价</span>
+        <span class="source-tag">烂番茄</span>
+        <span class="quality-badge">10分</span>
+        烂番茄
+      </p>
+    </div>
+    
+    
+  </div>
+  
+</div>
+
+<!-- ═══ 天气简报 ═══ -->
+
+<div class="weather-ribbon">
+  
+  <span class="weather-item">Beijing 当前 ☀️ 晴  21.9°C · 风速 6.5 km/h</span>
+  
+</div>
+
+
+<!-- ═══ 页脚 ═══ -->
+<footer class="footer">
+  TheDailyMe © 2026 · 由 Python + Jinja2 生成 · 数据来源见各条目链接
+</footer>
+
+<!-- ═══ AI 二级详情弹窗 ═══ -->
+
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+  <div class="detail-panel" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeDetail()" title="关闭">&times;</button>
+
+    <div class="detail-category">
+      <span id="detailCategory"></span>
+      <span class="score" id="detailScore"></span>
+    </div>
+
+    <h2 id="detailTitle"></h2>
+
+    <div class="detail-meta">
+      <span id="detailSource"></span>
+      <span id="detailReason"></span>
+    </div>
+
+    <div class="detail-body" id="detailBody"></div>
+
+    <div class="detail-source">
+      <span class="source-label"><i class="icon icon-paperclip"></i> 信息来源</span>
+      <a class="source-btn" id="detailSourceUrl" href="#" target="_blank" rel="noopener">
+        查看原文 &rarr;
+      </a>
+    </div>
+
+    <div class="detail-nav">
+      <button id="detailPrev" onclick="navigateDetail(-1)">&larr; 上一条</button>
+      <button id="detailNext" onclick="navigateDetail(1)">下一条 &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var _aiHeadlines = [{"ai_title": "Bend语言横空出世：用数学证明堵住AI编程错误，CPU/GPU通吃", "ai_summary": "Hacker News热帖介绍了一门名为Bend的新编程语言，它通过形式化证明机制从语言层面阻止AI生成代码中的逻辑错误，同时支持CPU和GPU并行执行。该语言试图解决AI辅助编程时代最棘手的问题——代码正确性无法保证。帖子获得224分和121条评论，开发者社区讨论热烈。", "ai_detail": "随着GitHub Copilot、Cursor等AI编程工具普及，开发者面临一个日益严峻的问题：AI生成的代码看似合理，却可能隐藏微妙的逻辑错误或安全漏洞。Bend语言的核心创新在于将形式化验证（formal verification）嵌入语言设计本身，要求代码在编译阶段提供数学证明，从根本上杜绝AI幻觉导致的错误。这一思路与传统的单元测试和类型系统有本质区别——前者是事后检查，后者是事前证明。Bend同时支持CPU和GPU执行路径，意味着它瞄准的不只是普通应用开发，还包括高性能计算和AI推理场景。从社区反响看，121条评论中既有对形式化方法实用性的质疑，也有对其在AI安全领域前景的看好。值得关注的是，这与GitHub Trending上alibaba/open-code-review和cloudflare/security-audit-skill等项目的走红形成呼应——整个行业正在探索如何让AI编程既高效又可靠。Bend能否从学术圈走向工业界，取决于其学习曲线和生态建设。", "importance_score": 9, "importance_reason": "直击AI编程时代最核心的信任问题，技术创新性强，社区讨论热度高，可能影响未来编程语言设计方向。", "source": "Hacker News", "category": "tech", "url": "https://bend-lang.com/", "original_title": "Bend – A language that blocks AI mistakes via proof, on CPU and GPU", "original_summary": ""}, {"ai_title": "Cloudflare开源安全审计AI技能：多阶段扫描，机器可读的独立验证发现", "ai_summary": "Cloudflare在GitHub发布security-audit-skill项目，这是一个专为编码Agent设计的多阶段安全审计技能包，能产出经过独立验证的机器可读安全发现。项目今日斩获3607颗星，采用JavaScript编写。它标志着安全审计正从人工驱动转向AI Agent自动化执行。", "ai_detail": "Cloudflare作为全球最大的CDN和网络安全公司之一，其内部安全实践一直备受业界关注。此次开源的security-audit-skill并非一个独立工具，而是一个「技能」（skill）——即为AI编码Agent提供结构化的安全审计能力。所谓多阶段，意味着它覆盖了从代码扫描、漏洞识别到验证确认的完整流程；所谓机器可读的独立验证，则意味着审计结果可以被CI/CD流水线自动消费，而非依赖人工解读报告。这一项目的战略意义在于：当AI Agent越来越深入地参与代码编写，安全审计也必须同步AI化，否则就会出现「AI写代码、人类查漏洞」的瓶颈。结合同日GitHub Trending上alibaba/open-code-review（3286星）和addyosmani/agent-skills（680星）的上榜，可以清晰看到一个趋势：2026年，围绕AI编码Agent的「技能层」正在成为开源社区最活跃的战场。Cloudflare此举既是对外输出安全能力，也是在抢占AI安全基础设施的标准制定权。", "importance_score": 9, "importance_reason": "Cloudflare品牌背书，3607星日增显示极高关注度，代表了AI Agent安全审计这一新兴关键赛道。", "source": "GitHub Trending", "category": "tech", "url": "https://github.com/cloudflare/security-audit-skill", "original_title": "cloudflare / security-audit-skill", "original_summary": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings"}, {"ai_title": "阿里巴巴开源代码审查工具：确定性流水线+LLM Agent混合架构，日增3286星", "ai_summary": "阿里巴巴在GitHub开源open-code-review项目，采用确定性流水线加LLM Agent的混合架构，实现精准的行级代码评论。该工具经过阿里内部大规模实战检验，今日获得3286颗星，Go语言编写。这标志着大厂内部工程效能工具开始系统性对外输出。", "ai_detail": "代码审查（Code Review）是软件工程中最耗时却最关键的环节之一。阿里巴巴作为拥有数万名工程师的超大规模组织，其内部代码审查工具必然经历了极高并发和复杂场景的考验。open-code-review的核心设计思路值得深入分析：它没有完全依赖LLM做代码审查（那样会产生不可控的幻觉和噪音），而是采用混合架构——确定性流水线负责静态分析、规则匹配等可重复的检查，LLM Agent则负责需要语义理解的复杂判断，最终产出精确到行级的评论。这种「确定性+概率性」的组合，实际上是当前AI工程化落地的一个最佳实践范式。与Cloudflare的security-audit-skill聚焦安全不同，阿里的工具覆盖更通用的代码审查场景。两者同日登上GitHub Trending，加上addyosmani/agent-skills，说明「AI Agent技能生态」正在快速成型。对于国内开发者而言，阿里开源此工具也意味着可以低成本获得经过超大规模验证的代码审查能力。", "importance_score": 8, "importance_reason": "阿里大规模实战背书，混合架构设计具有行业参考价值，日增3286星反映开发者强烈需求。", "source": "GitHub Trending", "category": "tech", "url": "https://github.com/alibaba/open-code-review", "original_title": "alibaba / open-code-review", "original_summary": "Fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible."}, {"ai_title": "Carbon Brief分析：霍尔木兹危机冲击下，2026年全球化石燃料排放预计下降0.5%", "ai_summary": "Carbon Brief发布深度分析指出，受霍尔木兹危机影响，2026年全球化石燃料排放量预计下降约0.5%。这一下降并非源于清洁能源转型加速，而是地缘政治冲突导致能源供应中断的结果。该分析揭示了地缘政治与气候目标之间复杂的相互作用。", "ai_detail": "霍尔木兹海峡是全球最重要的石油运输通道，全球约20%的石油贸易量经由此处。Carbon Brief的这份分析指出了一个令人深思的悖论：全球碳排放的下降，可能并非来自各国主动的减排努力，而是地缘政治危机导致化石燃料供应被动收缩的结果。这种「危机驱动的减排」具有极大的不确定性和不可持续性——一旦危机缓解，排放可能迅速反弹。更值得关注的是，这与同日Carbon Brief另一篇关于印度电力部门排放因清洁能源激增而连续两年持平的报道形成鲜明对比：印度代表的是主动转型路径，而霍尔木兹危机代表的是被动冲击路径。两条路径对全球气候治理的含义截然不同。对于政策制定者而言，这份分析提出了一个关键问题：如果排放下降依赖于危机而非转型，那么全球气候目标的基础是否足够牢固？该报道属于Carbon Brief的深度分析系列，数据翔实，适合关注能源与气候交叉领域的读者深入阅读。", "importance_score": 8, "importance_reason": "地缘政治与气候变化的交叉分析视角独特，0.5%的全球排放变化影响深远，Carbon Brief深度报道权威性高。", "source": "Carbon Brief", "category": "climate", "url": "https://www.carbonbrief.org/analysis-global-fossil-fuel-emissions-set-to-fall-in-2026-amid-hormuz-crisis", "original_title": "Analysis: Global fossil-fuel emissions set to fall in 2026 amid Hormuz crisis", "original_summary": "Global fossil-fuel emissions are set to fall by around 0.5% in 2026 amid the fallout from the Hormuz crisis, according…The postAnalysis: Global fossil-fuel emissions set to fall in 2026 amid Hormuz cr"}, {"ai_title": "印度电力部门排放连续两年零增长：清洁能源激增成关键驱动力", "ai_summary": "Carbon Brief深度分析显示，得益于清洁能源的快速扩张，印度电力部门二氧化碳排放已连续两年保持零增长。作为全球第三大碳排放国，印度的这一趋势对全球气候目标具有重要意义，表明新兴经济体的经济增长与碳排放正在实现初步脱钩。", "ai_detail": "印度是全球第三大二氧化碳排放国，也是未来几十年能源需求增长最快的国家之一。长期以来，国际社会对印度能否在保持经济增长的同时控制排放持怀疑态度。Carbon Brief的这份分析给出了一个积极信号：印度电力部门的排放已连续两年没有增长，背后的驱动力是太阳能和风能装机的爆发式增长。这一趋势的意义超越了印度本身——它证明了在新兴经济体中，清洁能源可以在增量层面与化石能源竞争甚至胜出。然而，分析也隐含了几个需要关注的问题：第一，电力部门只是印度总排放的一部分，工业、交通等领域的排放趋势如何？第二，清洁能源的快速增长能否持续，取决于电网基础设施、储能成本和政策稳定性。第三，与同日关于霍尔木兹危机导致全球排放下降的分析对比，印度的案例代表了「主动转型」路径，其可持续性远高于「危机驱动」的被动减排。对于关注全球能源转型的读者，这份分析提供了难得的非西方视角的实证数据。", "importance_score": 8, "importance_reason": "印度作为关键新兴经济体的减排进展具有全球示范意义，连续两年零增长是重要里程碑，数据驱动分析可信度高。", "source": "Carbon Brief", "category": "climate", "url": "https://www.carbonbrief.org/analysis-indias-power-sector-emissions-flat-for-two-years-due-to-clean-energy-surge", "original_title": "Analysis: India’s power-sector emissions flat for two years due to clean-energy surge", "original_summary": "A surge in clean energy has kept carbon dioxide (CO2) emissions in check across India’s power sector, with no growth…The postAnalysis: India’s power-sector emissions flat for two years due to clean-en"}];
+var _currentIdx = 0;
+
+var CAT_LABELS = {
+  "tech": "科技",
+  "climate": "气候",
+  "gaming": "游戏",
+  "sports": "体育",
+  "movies": "影视",
+  "music": "音乐"
+};
+
+function openDetail(idx) {
+  if (idx < 0 || idx >= _aiHeadlines.length) return;
+  _currentIdx = idx;
+  var h = _aiHeadlines[idx];
+
+  document.getElementById('detailCategory').textContent = (CAT_LABELS[h.category] || h.category);
+  document.getElementById('detailScore').textContent = '重要性: ' + h.importance_score + '/10';
+  document.getElementById('detailTitle').textContent = h.ai_title;
+  document.getElementById('detailSource').textContent = '来源: ' + h.source;
+  document.getElementById('detailReason').textContent = h.importance_reason || '';
+  document.getElementById('detailBody').innerHTML = '<p>' + h.ai_detail.replace(/\n/g, '</p><p>') + '</p>';
+  document.getElementById('detailSourceUrl').href = h.url || '#';
+
+  document.getElementById('detailPrev').style.visibility = idx > 0 ? 'visible' : 'hidden';
+  document.getElementById('detailNext').style.visibility = idx < _aiHeadlines.length - 1 ? 'visible' : 'hidden';
+
+  document.getElementById('detailOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail(e) {
+  if (e && e.target !== document.getElementById('detailOverlay')) return;
+  document.getElementById('detailOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navigateDetail(dir) {
+  openDetail(_currentIdx + dir);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('detailOverlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closeDetail();
+  if (e.key === 'ArrowLeft') navigateDetail(-1);
+  if (e.key === 'ArrowRight') navigateDetail(1);
+});
+</script>
+
+
+</body>
+</html>
